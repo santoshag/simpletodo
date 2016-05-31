@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">hoopla</string>
+    <string name="add">Add</string>
+    <string name="add_item">Add a new item</string>
+    <string name="title_activity_edit_item">EditItemActivity</string>
+</resources>
