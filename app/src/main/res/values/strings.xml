@@ -3,4 +3,15 @@
     <string name="add">Add</string>
     <string name="add_item">Add a new item</string>
     <string name="title_activity_edit_item">EditItemActivity</string>
+    <string name="Name">Name</string>
+    <string name="taskName">Name</string>
+    <string name="taskNotes">Notes</string>
+    <string name="priority">Priority</string>
+    <string name="dueDate">Due Date</string>
+
+    <string-array name="priorities">
+        <item>LOW</item>
+        <item>MEDIUM</item>
+        <item>HIGH</item>
+    </string-array>
 </resources>

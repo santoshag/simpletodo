@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:simpletodo="http://schemas.android.com/apk/res-auto">
+
+        <item
+            android:id="@+id/action_save_new_item"
+            android:orderInCategory="100"
+            simpletodo:showAsAction="always"
+            android:icon="@drawable/ic_done_white_24dp"
+            android:title="Save Task"/>
+
+</menu>
