@@ -4,7 +4,7 @@ Hoopla is an android app that allows building a todo list and basic todo items m
 
 Submitted by: Santosh A Gogi
 
-Time spent: 12 hours spent in total
+Time spent: 18 hours spent in total
 
 ## User Stories
 
@@ -23,15 +23,12 @@ The following **optional** features are implemented:
 * [Y] Add support for selecting the priority of each todo item (and display in listview item)
 * [Y] Tweak the style improving the UI / UX, play with colors, images or backgrounds
 
-The following **additional** features are implemented:
-
-* [ ] List anything else that you can get done to improve the app functionality!
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='hooplademo.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
