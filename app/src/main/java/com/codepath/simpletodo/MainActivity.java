@@ -1,6 +1,9 @@
 package com.codepath.simpletodo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -36,19 +39,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_playlist_add_check_white_36dp);
 
         populateTodoItems();
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                TodoItem itemToBeDeleted = adapterTodoItems.getItem(position);
-                System.out.println("position: " + position + "  id:" + id + " itemId: " + itemToBeDeleted.getId());
-                todoItems.remove(position);
-                TodoItem.delete(TodoItem.class, itemToBeDeleted.getId());
-                adapterTodoItems.notifyDataSetChanged();
-
+                confirmDelete(position);
                 return true;
             }
         });
@@ -124,10 +122,52 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(i);
 //    }
 
-    public static List<TodoItem> getAllTodoItems() {
+    public List<TodoItem> getAllTodoItems() {
         return new Select()
                 .from(TodoItem.class)
                 .orderBy("Priority DESC")
                 .execute();
     }
+
+    private void confirmDelete(final int position){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set title
+        alertDialogBuilder.setTitle("Delete Task");
+        alertDialogBuilder.setIcon(R.drawable.ic_delete_black_18dp);
+            TodoItem itemToBeDeleted = adapterTodoItems.getItem(position);
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Delete " + itemToBeDeleted.title + "?")
+                .setCancelable(false)
+                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, close
+                        // current activity
+                        TodoItem itemToBeDeleted = adapterTodoItems.getItem(position);
+                        System.out.println("position: " + position + "  id:" + id + " itemId: " + itemToBeDeleted.getId());
+                        todoItems.remove(position);
+                        TodoItem.delete(TodoItem.class, itemToBeDeleted.getId());
+                        adapterTodoItems.notifyDataSetChanged();
+
+                    }
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+    }
+
 }

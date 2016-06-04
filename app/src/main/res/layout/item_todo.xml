@@ -8,7 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="27dp">
+        android:layout_height="27dp"
+        android:paddingTop="4dp">
 
         <TextView
 
@@ -30,16 +31,34 @@
             android:id="@+id/tvPriority"
             android:layout_alignTop="@+id/tvTitle"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            />
 
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="227dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/tvDueDate"
-        android:layout_weight="0.03" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:textAlignment="textEnd"
+        android:paddingTop="4dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_weight="0.00"
+            android:src="@android:drawable/ic_lock_idle_alarm" />
+
+        <TextView
+            android:layout_width="227dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/tvDueDate"
+            android:layout_weight="0.00"
+            android:textColor="@color/color_black"/>
+    </LinearLayout>
 
 </LinearLayout>

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 
@@ -23,9 +24,9 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ViewTodoItemActivity extends AppCompatActivity {
-    EditText etTitle;
-    EditText etNotes;
-    Spinner spPriority;
+    TextView tvItemTitle;
+    TextView tvItemNotes;
+    TextView tvPriority;
     DatePicker dpDueDate;
     Long dbItemIndex;
     TodoItem todoItem;
@@ -36,7 +37,10 @@ public class ViewTodoItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_item);
+        setContentView(R.layout.activity_view_item);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(R.string.view_task);
+        getSupportActionBar().setIcon(R.drawable.ic_playlist_add_check_white_36dp);
 
         dbItemIndex = getIntent().getLongExtra("dbItemIndex", -1);
         todoItem  = (TodoItem) new Select().from(TodoItem.class)
@@ -80,18 +84,15 @@ public class ViewTodoItemActivity extends AppCompatActivity {
         System.out.println(todoItem.title);
 
 
-        etTitle = (EditText) findViewById(R.id.etItemTitle);
-        etNotes = (EditText) findViewById(R.id.etItemNotes);
-        spPriority = (Spinner) findViewById(R.id.spPriority);
+        tvItemTitle = (TextView) findViewById(R.id.tvItemTitle);
+        tvItemNotes = (TextView) findViewById(R.id.tvItemNotes);
+        tvPriority = (TextView) findViewById(R.id.tvPriority);
         dpDueDate = (DatePicker) findViewById(R.id.dpDueDate);
 
-        etTitle.setText(todoItem.title);
-        etTitle.setEnabled(false);
-        etNotes.setText(todoItem.notes);
-        etNotes.setEnabled(false);
-        spPriority.setSelection(todoItem.priority);
-        spPriority.setEnabled(false);
-
+        tvItemTitle.setText(todoItem.title);
+        tvItemNotes.setText(todoItem.notes);
+        tvPriority.setText(TodoItem.getPriorityInString(todoItem.priority));
+        tvPriority.setTextColor(getPriorityColor(todoItem.priority));
 
         String dueDateString = todoItem.dueDate;
         DateFormat df = new SimpleDateFormat("EEE MMM dd h:mm:ss z yyyy", Locale.ENGLISH);
@@ -111,6 +112,15 @@ public class ViewTodoItemActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    int getPriorityColor(int priority){
+        switch (priority) {
+            case 0: return getApplicationContext().getResources().getColor(R.color.priority_low);
+            case 1: return getApplicationContext().getResources().getColor(R.color.priority_medium);
+            case 2: return getApplicationContext().getResources().getColor(R.color.priority_high);
+        }
+        return getApplicationContext().getResources().getColor(R.color.priority_medium);
     }
 
 }

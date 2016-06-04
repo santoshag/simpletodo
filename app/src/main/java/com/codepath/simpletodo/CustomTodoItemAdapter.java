@@ -22,8 +22,12 @@ import java.util.Locale;
  * Created by santoshag on 5/31/16.
  */
 public class CustomTodoItemAdapter extends ArrayAdapter<TodoItem> {
+    private Context mContext;
+
     public CustomTodoItemAdapter(Context context, ArrayList<TodoItem> todoItems) {
         super(context, 0, todoItems);
+        mContext = context;
+
     }
 
     @Override
@@ -42,7 +46,7 @@ public class CustomTodoItemAdapter extends ArrayAdapter<TodoItem> {
         // Populate the data into the template view using the data object
         tvTitle.setText(item.title);
         tvPriority.setText(TodoItem.getPriorityInString(item.priority));
-        tvPriority.setTextColor(TodoItem.getPriorityColor(item.priority));
+        tvPriority.setTextColor(getPriorityColor(item.priority));
 
         String startDateString = item.dueDate;
         DateFormat df = new SimpleDateFormat("EEE MMM dd h:mm:ss z yyyy", Locale.ENGLISH);
@@ -55,7 +59,7 @@ public class CustomTodoItemAdapter extends ArrayAdapter<TodoItem> {
             String year = (String) android.text.format.DateFormat.format("yyyy", startDate); //2013
             String day = (String) android.text.format.DateFormat.format("dd", startDate); //20
 
-            String dueDateText = "Due on "+ dayOfTheWeek + ", " +  stringMonth + " " + day + " " +year;
+            String dueDateText = "  " + dayOfTheWeek + ", " +  stringMonth + " " + day + " " +year;
             tvDueDate.setText(dueDateText);
             tvDueDate.setTypeface(null, Typeface.ITALIC);
 
@@ -67,4 +71,14 @@ public class CustomTodoItemAdapter extends ArrayAdapter<TodoItem> {
         // Return the completed view to render on screen
         return convertView;
     }
+
+    public int getPriorityColor(int priority){
+        switch (priority) {
+            case 0: return mContext.getResources().getColor(R.color.priority_low);
+            case 1: return mContext.getResources().getColor(R.color.priority_medium);
+            case 2: return mContext.getResources().getColor(R.color.priority_high);
+        }
+        return mContext.getResources().getColor(R.color.priority_medium);
+    }
+
 }

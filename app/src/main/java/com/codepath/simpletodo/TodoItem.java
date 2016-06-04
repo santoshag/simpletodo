@@ -46,14 +46,5 @@ public class TodoItem extends Model{
         return "";
     }
 
-    public static int getPriorityColor(int priority){
-        switch (priority) {
-            case 0: return Color.YELLOW;
-            case 1: return Color.GREEN;
-            case 2: return Color.RED;
-        }
-        return Color.GREEN;
-    }
-
 }
 

@@ -5,7 +5,7 @@
     <application
         android:name="com.activeandroid.app.Application"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/hoopla_icon_48dp"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -24,12 +24,11 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            </intent-filter>        </activity>
         <activity
             android:name=".NewItemActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".ViewTodoItemActivity"></activity>
+        <activity android:name=".ViewTodoItemActivity" />
     </application>
 
 </manifest>

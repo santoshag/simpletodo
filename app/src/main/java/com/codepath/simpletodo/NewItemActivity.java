@@ -34,6 +34,9 @@ public class NewItemActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.newtaskmenu, menu);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(R.string.new_task);
+        getSupportActionBar().setIcon(R.drawable.ic_playlist_add_check_white_36dp);
         return true;
     }
 
