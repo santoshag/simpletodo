@@ -105,7 +105,7 @@ public class EditTaskFragment extends DialogFragment {
             String year = (String) android.text.format.DateFormat.format("yyyy", dueDate); //2013
             String day = (String) android.text.format.DateFormat.format("dd", dueDate); //20
 
-            dpDueDate.updateDate(Integer.parseInt(year), Integer.parseInt(intMonth), Integer.parseInt(day));
+            dpDueDate.updateDate(Integer.parseInt(year), Integer.parseInt(intMonth)-1, Integer.parseInt(day));
 
         } catch (ParseException e) {
             e.printStackTrace();
