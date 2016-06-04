@@ -2,11 +2,14 @@ package com.codepath.simpletodo;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -24,12 +27,21 @@ public class ViewTodoItemActivity extends AppCompatActivity {
     EditText etNotes;
     Spinner spPriority;
     DatePicker dpDueDate;
+    Long dbItemIndex;
+    TodoItem todoItem;
+    EditTaskFragment editItemFragment;
+
+    private final int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_item);
-        dpDueDate = (DatePicker) findViewById(R.id.dpDueDate);
+
+        dbItemIndex = getIntent().getLongExtra("dbItemIndex", -1);
+        todoItem  = (TodoItem) new Select().from(TodoItem.class)
+                .where("id = ?", dbItemIndex).executeSingle();
+
         populateItemFields();
     }
 
@@ -46,8 +58,7 @@ public class ViewTodoItemActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // action with ID action_refresh was selected
             case R.id.action_edit_item:
-                Intent i = new Intent(ViewTodoItemActivity.this, NewItemActivity.class);
-                startActivity(i);
+                showEditDialog();
                 break;
             default:
                 break;
@@ -56,18 +67,23 @@ public class ViewTodoItemActivity extends AppCompatActivity {
         return true;
     }
 
+    private void showEditDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+
+        editItemFragment = EditTaskFragment.newInstance(dbItemIndex);
+        editItemFragment.show(fm, "fragment_edit_name");
+    }
 
     private void populateItemFields(){
         int position = getIntent().getIntExtra("position", -1);
-        Long dbItemIndex = getIntent().getLongExtra("dbItemIndex", -1);
-        TodoItem todoItem  = (TodoItem) new Select().from(TodoItem.class)
-                .where("id = ?", dbItemIndex).executeSingle();
+
         System.out.println(todoItem.title);
 
 
         etTitle = (EditText) findViewById(R.id.etItemTitle);
         etNotes = (EditText) findViewById(R.id.etItemNotes);
         spPriority = (Spinner) findViewById(R.id.spPriority);
+        dpDueDate = (DatePicker) findViewById(R.id.dpDueDate);
 
         etTitle.setText(todoItem.title);
         etTitle.setEnabled(false);
@@ -75,7 +91,6 @@ public class ViewTodoItemActivity extends AppCompatActivity {
         etNotes.setEnabled(false);
         spPriority.setSelection(todoItem.priority);
         spPriority.setEnabled(false);
-//        dpDueDate.init();
 
 
         String dueDateString = todoItem.dueDate;
@@ -97,4 +112,5 @@ public class ViewTodoItemActivity extends AppCompatActivity {
         }
 
     }
+
 }

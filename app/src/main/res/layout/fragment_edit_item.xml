@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/taskName"
+            android:id="@+id/textView"
+            android:layout_weight="0.15"
+            android:textAlignment="center"
+            android:paddingTop="16dp"
+            android:textSize="20dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:id="@+id/etItemTitle"
+            android:layout_weight="0.8" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/taskNotes"
+            android:id="@+id/textView2"
+            android:layout_weight="0.15"
+            android:textAlignment="center"
+            android:paddingTop="16dp"
+            android:textSize="20dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:id="@+id/etItemNotes"
+            android:layout_weight="0.8" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="106dp"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/priority"
+            android:id="@+id/textView3"
+            android:textAlignment="center"
+            android:paddingTop="16dp"
+            android:textSize="20dp" />
+
+        <Spinner
+            android:layout_width="278dp"
+            android:layout_height="73dp"
+            android:id="@+id/spPriority"
+            android:spinnerMode="dropdown"
+            android:entries="@array/priorities"
+            android:theme="@android:style/Widget.TextView.SpinnerItem" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="298dp"
+        android:weightSum="1"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/dueDate"
+            android:id="@+id/textView4"
+            android:textAlignment="center"
+            android:paddingTop="16dp"
+            android:textSize="20dp"
+            android:theme="@style/Base.Theme.AppCompat.Light" />
+
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dpDueDate"
+            android:calendarViewShown="true"
+            android:spinnersShown="false"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:theme="@style/AlertDialog.AppCompat.Light" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:weightSum="2"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/btnCancel"
+            android:onClick="cancelDialog"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/btnSave"
+            android:onClick="saveItem"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+
+</LinearLayout>
