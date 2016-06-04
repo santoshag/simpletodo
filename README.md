@@ -4,7 +4,7 @@ Hoopla is an android app that allows building a todo list and basic todo items m
 
 Submitted by: Santosh A Gogi
 
-Time spent: 18 hours spent in total
+Time spent: 18.5 hours spent in total
 
 ## User Stories
 
@@ -38,9 +38,9 @@ Overall, had a really interesting time coding the app.
 
 Challenges faced.
 - Had quite a few difficulties working with layouts.
-- activeandroid does not have any online support.
+- activeandroid ORM does not have any online support. Issue - Date object is not deserialized correctly.
 - backward compatibility of material themes to API 16 since material design was introduced in later API version (I think API 21) could not be done.
-- Splash screen image could be loaded into memory even after loading bitmap as per android guidelines.
+- Splash screen image could not be loaded into memory even after loading bitmap as per android guidelines.
 
 ## License
 
