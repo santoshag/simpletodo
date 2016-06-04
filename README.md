@@ -34,7 +34,13 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Overall, had a really interesting time coding the app.
+
+Challenges faced.
+- Had quite a few difficulties working with layouts.
+- activeandroid does not have any online support.
+- backward compatibility of material themes to API 16 since material design was introduced in later API version (I think API 21) could not be done.
+- Splash screen image could be loaded into memory even after loading bitmap as per android guidelines.
 
 ## License
 
