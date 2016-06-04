@@ -17,18 +17,18 @@
             android:value="1" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.codepath.simpletodo.TodoItem" />
+            android:value="com.codepath.simpletodo.models.TodoItem" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>        </activity>
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".NewItemActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".ViewTodoItemActivity" />
+            android:name=".activities.NewItemActivity"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity android:name=".activities.ViewTodoItemActivity" />
     </application>
 
 </manifest>

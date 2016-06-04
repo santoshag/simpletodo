@@ -1,7 +1,9 @@
-package com.codepath.simpletodo;
+package com.codepath.simpletodo.adapters;
+
+import com.codepath.simpletodo.R;
+import com.codepath.simpletodo.models.TodoItem;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +15,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -59,7 +59,7 @@ public class CustomTodoItemAdapter extends ArrayAdapter<TodoItem> {
             String year = (String) android.text.format.DateFormat.format("yyyy", startDate); //2013
             String day = (String) android.text.format.DateFormat.format("dd", startDate); //20
 
-            String dueDateText = "  " + dayOfTheWeek + ", " +  stringMonth + " " + day + " " +year;
+            String dueDateText = "  " + dayOfTheWeek + ", " + stringMonth + " " + day + " " + year;
             tvDueDate.setText(dueDateText);
             tvDueDate.setTypeface(null, Typeface.ITALIC);
 
@@ -72,11 +72,14 @@ public class CustomTodoItemAdapter extends ArrayAdapter<TodoItem> {
         return convertView;
     }
 
-    public int getPriorityColor(int priority){
+    public int getPriorityColor(int priority) {
         switch (priority) {
-            case 0: return mContext.getResources().getColor(R.color.priority_low);
-            case 1: return mContext.getResources().getColor(R.color.priority_medium);
-            case 2: return mContext.getResources().getColor(R.color.priority_high);
+            case 0:
+                return mContext.getResources().getColor(R.color.priority_low);
+            case 1:
+                return mContext.getResources().getColor(R.color.priority_medium);
+            case 2:
+                return mContext.getResources().getColor(R.color.priority_high);
         }
         return mContext.getResources().getColor(R.color.priority_medium);
     }

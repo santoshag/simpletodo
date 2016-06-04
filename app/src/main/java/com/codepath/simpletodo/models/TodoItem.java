@@ -1,6 +1,4 @@
-package com.codepath.simpletodo;
-
-import android.graphics.Color;
+package com.codepath.simpletodo.models;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
@@ -11,7 +9,7 @@ import com.activeandroid.annotation.Table;
  */
 
 @Table(name = "TodoItems")
-public class TodoItem extends Model{
+public class TodoItem extends Model {
     public static int PRIORITY_LOW = 0;
     public static int PRIORITY_MEDIUM = 1;
     public static int PRIORITY_HIGH = 2;
@@ -25,11 +23,11 @@ public class TodoItem extends Model{
     @Column(name = "DueDate")
     public String dueDate;
 
-    public TodoItem(){
+    public TodoItem() {
         super();
     }
 
-    public TodoItem(String title, String notes, int priority, String dueDate){
+    public TodoItem(String title, String notes, int priority, String dueDate) {
         super();
         this.title = title;
         this.notes = notes;
@@ -37,11 +35,14 @@ public class TodoItem extends Model{
         this.dueDate = dueDate;
     }
 
-    public static String getPriorityInString(int priority){
+    public static String getPriorityInString(int priority) {
         switch (priority) {
-            case 0: return "LOW";
-            case 1: return "MEDIUM";
-            case 2: return "HIGH";
+            case 0:
+                return "LOW";
+            case 1:
+                return "MEDIUM";
+            case 2:
+                return "HIGH";
         }
         return "";
     }

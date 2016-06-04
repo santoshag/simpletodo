@@ -1,21 +1,18 @@
-package com.codepath.simpletodo;
+package com.codepath.simpletodo.activities;
 
-import android.content.Intent;
-import android.graphics.Typeface;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.activeandroid.query.Select;
+import com.codepath.simpletodo.R;
+import com.codepath.simpletodo.fragments.EditTaskFragment;
+import com.codepath.simpletodo.models.TodoItem;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -32,24 +29,24 @@ public class ViewTodoItemActivity extends AppCompatActivity {
     TodoItem todoItem;
     EditTaskFragment editItemFragment;
 
-    private final int REQUEST_CODE = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_item);
+
+        //set tool bar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(R.string.view_task);
-        getSupportActionBar().setIcon(R.drawable.ic_playlist_add_check_white_36dp);
+        getSupportActionBar().setIcon(R.drawable.ic_app_icon);
 
         dbItemIndex = getIntent().getLongExtra("dbItemIndex", -1);
-        todoItem  = (TodoItem) new Select().from(TodoItem.class)
+        todoItem = (TodoItem) new Select().from(TodoItem.class)
                 .where("id = ?", dbItemIndex).executeSingle();
 
         populateItemFields();
     }
 
-
+    //set tool bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -57,6 +54,7 @@ public class ViewTodoItemActivity extends AppCompatActivity {
         return true;
     }
 
+    //handle tool bar actions
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -71,6 +69,7 @@ public class ViewTodoItemActivity extends AppCompatActivity {
         return true;
     }
 
+    //dialogfragment for edit todo item
     private void showEditDialog() {
         FragmentManager fm = getSupportFragmentManager();
 
@@ -78,11 +77,9 @@ public class ViewTodoItemActivity extends AppCompatActivity {
         editItemFragment.show(fm, "fragment_edit_name");
     }
 
-    private void populateItemFields(){
+
+    private void populateItemFields() {
         int position = getIntent().getIntExtra("position", -1);
-
-        System.out.println(todoItem.title);
-
 
         tvItemTitle = (TextView) findViewById(R.id.tvItemTitle);
         tvItemNotes = (TextView) findViewById(R.id.tvItemNotes);
@@ -105,6 +102,7 @@ public class ViewTodoItemActivity extends AppCompatActivity {
             String day = (String) android.text.format.DateFormat.format("dd", dueDate); //20
 
             dpDueDate.updateDate(Integer.parseInt(year), Integer.parseInt(intMonth), Integer.parseInt(day));
+            //set min and max date as the due date to make it uneditable
             dpDueDate.setMinDate(dueDate.getTime());
             dpDueDate.setMaxDate(dueDate.getTime());
 
@@ -114,11 +112,14 @@ public class ViewTodoItemActivity extends AppCompatActivity {
 
     }
 
-    int getPriorityColor(int priority){
+    int getPriorityColor(int priority) {
         switch (priority) {
-            case 0: return getApplicationContext().getResources().getColor(R.color.priority_low);
-            case 1: return getApplicationContext().getResources().getColor(R.color.priority_medium);
-            case 2: return getApplicationContext().getResources().getColor(R.color.priority_high);
+            case 0:
+                return getApplicationContext().getResources().getColor(R.color.priority_low);
+            case 1:
+                return getApplicationContext().getResources().getColor(R.color.priority_medium);
+            case 2:
+                return getApplicationContext().getResources().getColor(R.color.priority_high);
         }
         return getApplicationContext().getResources().getColor(R.color.priority_medium);
     }

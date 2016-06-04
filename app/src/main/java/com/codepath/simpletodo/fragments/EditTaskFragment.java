@@ -1,4 +1,4 @@
-package com.codepath.simpletodo;
+package com.codepath.simpletodo.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.activeandroid.query.Select;
+import com.codepath.simpletodo.R;
+import com.codepath.simpletodo.activities.MainActivity;
+import com.codepath.simpletodo.models.TodoItem;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -56,34 +59,32 @@ public class EditTaskFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        System.out.println("newItem.getId(): before" + getArguments().getLong("editTaskId"));
-
-        todoItem  = (TodoItem) new Select().from(TodoItem.class)
+        todoItem = (TodoItem) new Select().from(TodoItem.class)
                 .where("id = ?", getArguments().getLong("editTaskId")).executeSingle();
 
 
     }
 
-        @Override
+    @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-            Button btnSave = (Button) view.findViewById(R.id.btnSave);
+        Button btnSave = (Button) view.findViewById(R.id.btnSave);
 
-            btnSave.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    saveItem(view);
-                }
-            });
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveItem(view);
+            }
+        });
 
-            Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
-            btnCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cancelDialog(view);
-                }
-            });
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelDialog(view);
+            }
+        });
 
 
         etTitle = (EditText) view.findViewById(R.id.etItemTitle);
@@ -101,11 +102,11 @@ public class EditTaskFragment extends DialogFragment {
         try {
             dueDate = df.parse(dueDateString);
 
-            String intMonth = (String) android.text.format.DateFormat.format("MM", dueDate); //06
-            String year = (String) android.text.format.DateFormat.format("yyyy", dueDate); //2013
-            String day = (String) android.text.format.DateFormat.format("dd", dueDate); //20
+            String intMonth = (String) android.text.format.DateFormat.format("MM", dueDate);
+            String year = (String) android.text.format.DateFormat.format("yyyy", dueDate);
+            String day = (String) android.text.format.DateFormat.format("dd", dueDate);
 
-            dpDueDate.updateDate(Integer.parseInt(year), Integer.parseInt(intMonth)-1, Integer.parseInt(day));
+            dpDueDate.updateDate(Integer.parseInt(year), Integer.parseInt(intMonth) - 1, Integer.parseInt(day));
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -113,7 +114,6 @@ public class EditTaskFragment extends DialogFragment {
     }
 
     public void saveItem(View view) {
-        System.out.println("called from df");
         etTitle = (EditText) view.findViewById(R.id.etItemTitle);
         etNotes = (EditText) view.findViewById(R.id.etItemNotes);
         spPriority = (Spinner) view.findViewById(R.id.spPriority);
@@ -135,8 +135,6 @@ public class EditTaskFragment extends DialogFragment {
         this.dismiss();
 
     }
-
-
 
 
     public void cancelDialog(View view) {

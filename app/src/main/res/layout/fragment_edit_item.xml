@@ -2,145 +2,145 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:weightSum="1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="47dp"
+        android:orientation="horizontal"
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/taskName"
-            android:id="@+id/textView"
             android:layout_weight="0.15"
-            android:textAlignment="center"
             android:paddingTop="16dp"
+            android:text="@string/taskName"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="20dp" />
 
         <EditText
+            android:id="@+id/etItemTitle"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
-            android:id="@+id/etItemTitle"
             android:layout_weight="0.8" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:weightSum="1"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/taskNotes"
-            android:id="@+id/textView2"
             android:layout_weight="0.15"
-            android:textAlignment="center"
             android:paddingTop="16dp"
+            android:text="@string/taskNotes"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="20dp" />
 
         <EditText
+            android:id="@+id/etItemNotes"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
-            android:id="@+id/etItemNotes"
             android:layout_weight="0.8" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:orientation="horizontal"
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="106dp"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/priority"
-            android:id="@+id/textView3"
-            android:textAlignment="center"
             android:paddingTop="16dp"
+            android:text="@string/priority"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="20dp" />
 
         <Spinner
+            android:id="@+id/spPriority"
             android:layout_width="278dp"
             android:layout_height="match_parent"
-            android:id="@+id/spPriority"
-            android:spinnerMode="dropdown"
+            android:layout_weight="0.69"
             android:entries="@array/priorities"
-            android:theme="@android:style/Widget.TextView.SpinnerItem"
-            android:layout_weight="0.69"/>
+            android:spinnerMode="dropdown"
+            android:theme="@android:style/Widget.TextView.SpinnerItem" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="411dp"
         android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
         android:weightSum="1">
 
 
         <TextView
+            android:id="@+id/textView4"
             android:layout_width="73dp"
             android:layout_height="66dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/dueDate"
-            android:id="@+id/textView4"
-            android:textAlignment="center"
             android:paddingTop="16dp"
-            android:textSize="20dp"/>
+            android:text="@string/dueDate"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20dp" />
 
         <DatePicker
+            android:id="@+id/dpDueDate"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/dpDueDate"
             android:calendarViewShown="true"
-            android:spinnersShown="false"
             android:scaleX="0.8"
-            android:scaleY="0.8" />
+            android:scaleY="0.8"
+            android:spinnersShown="false" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
-        android:orientation="horizontal"
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
-        style="?android:attr/buttonBarStyle">
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
             android:id="@+id/btnCancel"
-            android:onClick="cancelDialog"
-            android:layout_weight="1"/>
-
-
-        <Button
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:layout_weight="1"
+            android:onClick="cancelDialog"
+            android:text="Cancel" />
+
+
+        <Button
             android:id="@+id/btnSave"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:onClick="saveItem"
-            android:layout_weight="1"/>
+            android:text="Save" />
     </LinearLayout>
 
 

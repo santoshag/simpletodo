@@ -2,110 +2,111 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/taskName"
-            android:id="@+id/textView2"
             android:layout_weight="0.15"
-            android:textAlignment="center"
             android:paddingTop="16dp"
+            android:text="@string/taskName"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="15dp" />
+
         <EditText
+            android:id="@+id/etItemTitle"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
-            android:id="@+id/etItemTitle"
             android:layout_weight="0.8"
             android:textAlignment="viewStart" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/taskNotes"
-            android:id="@+id/textView2"
             android:layout_weight="0.15"
-            android:textAlignment="center"
             android:paddingTop="16dp"
+            android:text="@string/taskNotes"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="15dp" />
 
         <EditText
+            android:id="@+id/etItemNotes"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
-            android:id="@+id/etItemNotes"
             android:layout_weight="0.8" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:weightSum="1">
 
         <TextView
             android:layout_width="106dp"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:paddingTop="24dp"
             android:text="@string/priority"
             android:textAlignment="center"
-            android:paddingTop="24dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="15dp" />
 
         <Spinner
+            android:id="@+id/spPriority"
             android:layout_width="278dp"
             android:layout_height="73dp"
-            android:id="@+id/spPriority"
-            android:spinnerMode="dropdown"
             android:entries="@array/priorities"
+            android:spinnerMode="dropdown"
             android:theme="@android:style/Widget.TextView.SpinnerItem" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:weightSum="1"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <TextView
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="99dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/dueDate"
-            android:id="@+id/textView4"
-            android:textAlignment="center"
+            android:layout_weight="2.14"
             android:paddingTop="50dp"
-            android:textSize="15dp"
-            android:layout_weight="2.14" />
+            android:text="@string/dueDate"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="15dp" />
 
         <DatePicker
+            android:id="@+id/dpDueDate"
             android:layout_width="wrap_content"
             android:layout_height="396dp"
-            android:id="@+id/dpDueDate"
             android:calendarViewShown="true"
-            android:spinnersShown="false"
             android:scaleX="0.9"
-            android:scaleY="0.9" />
+            android:scaleY="0.9"
+            android:spinnersShown="false" />
 
     </LinearLayout>
 

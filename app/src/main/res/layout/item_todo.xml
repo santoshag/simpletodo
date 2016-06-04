@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
 
     <RelativeLayout
@@ -13,52 +13,51 @@
 
         <TextView
 
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/tvTitle"
-            android:layout_gravity="right"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="right"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
+            android:id="@+id/tvPriority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/tvPriority"
-            android:layout_alignTop="@+id/tvTitle"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            />
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tvTitle"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </RelativeLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="350dp"
         android:layout_height="match_parent"
-        android:textAlignment="textEnd"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
         android:paddingTop="4dp"
-        android:paddingBottom="8dp">
+        android:textAlignment="textEnd">
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView"
             android:layout_weight="0.00"
             android:src="@android:drawable/ic_lock_idle_alarm" />
 
         <TextView
+            android:id="@+id/tvDueDate"
             android:layout_width="227dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/tvDueDate"
             android:layout_weight="0.00"
-            android:textColor="@color/color_black"/>
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/color_black" />
     </LinearLayout>
 
 </LinearLayout>

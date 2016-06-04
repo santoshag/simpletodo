@@ -2,127 +2,127 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:weightSum="1"
-        android:textAlignment="viewStart">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/taskName"
-            android:id="@+id/textView"
-            android:layout_weight="0.15"
-            android:textAlignment="center"
-            android:paddingTop="16dp"
-            android:textSize="20dp" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/taskName"
-            android:id="@+id/tvItemTitle"
-            android:layout_weight="0.15"
-            android:textAlignment="center"
-            android:paddingTop="16dp"
-            android:textSize="20dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="71dp"
-        android:weightSum="1"
-        android:layout_gravity="center_horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/taskNotes"
-            android:id="@+id/textView2"
-            android:layout_weight="0.15"
-            android:textAlignment="center"
-            android:paddingTop="16dp"
-            android:textSize="20dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/taskName"
-            android:id="@+id/tvItemNotes"
-            android:layout_weight="0.15"
-            android:textAlignment="center"
-            android:paddingTop="16dp"
-            android:textSize="20dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="66dp"
+        android:textAlignment="viewStart"
         android:weightSum="1">
 
         <TextView
-            android:layout_width="106dp"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/priority"
-            android:id="@+id/textView3"
-            android:textAlignment="center"
-            android:paddingTop="16dp"
-            android:textSize="20dp" />
-
-        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/taskName"
-            android:id="@+id/tvPriority"
             android:layout_weight="0.15"
-            android:textAlignment="center"
             android:paddingTop="16dp"
+            android:text="@string/taskName"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20dp" />
+
+
+        <TextView
+            android:id="@+id/tvItemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            android:paddingTop="16dp"
+            android:text="@string/taskName"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="20dp" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            android:paddingTop="16dp"
+            android:text="@string/taskNotes"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/tvItemNotes"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            android:paddingTop="16dp"
+            android:text="@string/taskName"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="106dp"
+            android:layout_height="match_parent"
+            android:paddingTop="16dp"
+            android:text="@string/priority"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/tvPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            android:paddingTop="16dp"
+            android:text="@string/taskName"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="436dp"
         android:layout_height="match_parent"
-        android:weightSum="1"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="103dp"
             android:layout_height="98dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/dueDate"
-            android:textColor="@color/primary_dark"
-            android:textAlignment="center"
             android:paddingTop="50dp"
-            android:textSize="20dp"/>
+            android:text="@string/dueDate"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/primary_dark"
+            android:textSize="20dp" />
 
         <DatePicker
+            android:id="@+id/dpDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/dpDueDate"
             android:calendarViewShown="true"
-            android:spinnersShown="false"
             android:scaleX="0.8"
-            android:scaleY="0.8" />
+            android:scaleY="0.8"
+            android:spinnersShown="false" />
 
     </LinearLayout>
 

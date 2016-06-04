@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:simpletodo="http://schemas.android.com/apk/res-auto">
 
-        <item
-            android:id="@+id/action_edit_item"
-            android:orderInCategory="100"
-            simpletodo:showAsAction="always"
-            android:icon="@drawable/ic_mode_edit_white_24dp"
-            android:title="Edit Task"/>
+    <item
+        android:id="@+id/action_edit_item"
+        android:icon="@drawable/ic_mode_edit_white_24dp"
+        android:orderInCategory="100"
+        android:title="Edit Task"
+        simpletodo:showAsAction="always" />
 
 </menu>

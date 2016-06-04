@@ -1,9 +1,8 @@
-package com.codepath.simpletodo;
+package com.codepath.simpletodo.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,16 +12,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.activeandroid.query.Select;
+import com.codepath.simpletodo.R;
+import com.codepath.simpletodo.adapters.CustomTodoItemAdapter;
+import com.codepath.simpletodo.models.TodoItem;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,17 +27,20 @@ public class MainActivity extends AppCompatActivity {
     ListView lvItems;
     EditText etEditItemText;
 
-    //REQUEST_CODE 1 for edit items
-    private final int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.ic_playlist_add_check_white_36dp);
 
+        //set action bar icon
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_app_icon);
+
+        //prepare list view using custom adapter
         populateTodoItems();
+
+        //delete item on long click
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -51,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //start add new todo activity
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -58,11 +57,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this, ViewTodoItemActivity.class);
                 i.putExtra("position", position);
                 i.putExtra("dbItemIndex", itemToBeDeleted.getId());
-                startActivityForResult(i, REQUEST_CODE);
+                startActivity(i);
             }
         });
     }
 
+    //generate tool bar actions
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    //handle tool bar actions
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -86,41 +87,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void populateTodoItems(){
-
-
-    // Query ActiveAndroid for list of data
-            List<TodoItem> queryResults = new Select().from(TodoItem.class)
-                    .orderBy("Priority DESC").execute();
-    // Load the result into the adapter using `addAll`
+    public void populateTodoItems() {
+        // Query ActiveAndroid for list of todo items currenty sorted by priority
+        List<TodoItem> queryResults = new Select().from(TodoItem.class)
+                .orderBy("Priority DESC").execute();
+        // Load the result into the adapter using `addAll`
         todoItems = new ArrayList<TodoItem>(queryResults);
         adapterTodoItems =
                 new CustomTodoItemAdapter(this, todoItems);
-//            adapterTodoItems.addAll(queryResults);
-    // Attach the adapter to a ListView
         lvItems = (ListView) findViewById(R.id.lvItems);
         lvItems.setAdapter(adapterTodoItems);
 
-
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // REQUEST_CODE is defined above
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            // Extract name value from result extras
-            int position = data.getExtras().getInt("position", -1);
-            String itemText = data.getExtras().getString("itemText");
-
-
-        }
-    }
-
-//    public void onAddItem(View view) {
-//        Intent i = new Intent(MainActivity.this, NewItemActivity.class);
-//        startActivity(i);
-//    }
 
     public List<TodoItem> getAllTodoItems() {
         return new Select()
@@ -129,21 +108,23 @@ public class MainActivity extends AppCompatActivity {
                 .execute();
     }
 
-    private void confirmDelete(final int position){
+
+    //build dialog to confirm delete and execute delete
+    private void confirmDelete(final int position) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
 
         // set title
         alertDialogBuilder.setTitle("Delete Task");
         alertDialogBuilder.setIcon(R.drawable.ic_delete_black_18dp);
-            TodoItem itemToBeDeleted = adapterTodoItems.getItem(position);
+        TodoItem itemToBeDeleted = adapterTodoItems.getItem(position);
 
         // set dialog message
         alertDialogBuilder
                 .setMessage("Delete " + itemToBeDeleted.title + "?")
                 .setCancelable(false)
-                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, close
                         // current activity
                         TodoItem itemToBeDeleted = adapterTodoItems.getItem(position);
@@ -154,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 })
-                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, just close
                         // the dialog box and do nothing
