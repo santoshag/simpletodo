@@ -25,6 +25,7 @@ public class NewItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_item);
+
         dpDueDate = (DatePicker) findViewById(R.id.dpDueDate);
         assert dpDueDate != null;
         dpDueDate.setMinDate(System.currentTimeMillis() - 1000);

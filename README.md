@@ -4,7 +4,7 @@ Hoopla is an android app that allows building a todo list and basic todo items m
 
 Submitted by: Santosh A Gogi
 
-Time spent: 18.5 hours spent in total
+Time spent: 19.5 hours spent in total
 
 ## User Stories
 
