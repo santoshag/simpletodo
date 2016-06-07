@@ -40,7 +40,6 @@ Challenges faced.
 - Had quite a few difficulties working with layouts.
 - activeandroid ORM does not have any online support. Issue - Date object is not deserialized correctly.
 - backward compatibility of material themes to API 16 since material design was introduced in later API version (I think API 21) could not be done.
-- Splash screen image could not be loaded into memory even after loading bitmap as per android guidelines.
 
 ## License
 
