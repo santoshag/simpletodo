@@ -21,7 +21,8 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="right"
             android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:paddingLeft="10dp" />
 
         <TextView
             android:id="@+id/tvPriority"
@@ -31,7 +32,20 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/tvTitle"
             android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="15dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="100dp"
+                android:paddingLeft="10dp"
+                android:id="@+id/vPriorityLine"/>
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -48,16 +62,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.00"
-            android:src="@android:drawable/ic_lock_idle_alarm" />
+            android:src="@android:drawable/ic_lock_idle_alarm"
+            android:paddingLeft="30dp" />
 
         <TextView
             android:id="@+id/tvDueDate"
-            android:layout_width="227dp"
+            android:layout_width="125dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.00"
             android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/color_black" />
+
+        <ImageView
+            android:id="@+id/ivLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_weight="0.00"
+            android:src="@drawable/ic_place_black_18dp"
+            android:tint="@color/primary" />
+
+        <TextView
+            android:id="@+id/tvLocationName"
+            android:layout_width="163dp"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/color_black" />
+
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:paddingLeft="10dp"
+        android:background="@color/color_accent_2"/>
 
 </LinearLayout>

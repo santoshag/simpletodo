@@ -3,6 +3,7 @@ package com.codepath.simpletodo.models;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by santoshag on 5/31/16.
@@ -22,17 +23,34 @@ public class TodoItem extends Model {
     public int priority;
     @Column(name = "DueDate")
     public String dueDate;
+    @Column(name = "IsLocationSet")
+    public Boolean isLocationSet;
+    @Column(name = "PlaceName")
+    public String placeName;
+    @Column(name = "PlaceAddress")
+    public String placeAddress;
+    @Column(name = "Latitude")
+    public Double latitude;
+    @Column(name = "Longitude")
+    public Double longitude;
+
+
 
     public TodoItem() {
         super();
     }
 
-    public TodoItem(String title, String notes, int priority, String dueDate) {
+    public TodoItem(String title, String notes, int priority, String dueDate, Boolean isLocationSet,String placeName, String placeAddress, Double latitude, Double longitude) {
         super();
         this.title = title;
         this.notes = notes;
         this.priority = priority;
         this.dueDate = dueDate;
+        this.isLocationSet = isLocationSet;
+        this.placeName = placeName;
+        this.placeAddress = placeAddress;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public static String getPriorityInString(int priority) {

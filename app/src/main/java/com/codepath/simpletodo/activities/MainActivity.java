@@ -53,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TodoItem itemToBeDeleted = adapterTodoItems.getItem(position);
+                TodoItem selectedItem = adapterTodoItems.getItem(position);
                 Intent i = new Intent(MainActivity.this, ViewTodoItemActivity.class);
                 i.putExtra("position", position);
-                i.putExtra("dbItemIndex", itemToBeDeleted.getId());
+                i.putExtra("dbItemIndex", selectedItem.getId());
                 startActivity(i);
             }
         });
@@ -152,3 +152,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+
+

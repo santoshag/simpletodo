@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">hoopla to-do</string>
+    <string name="app_name">Hoopla</string>
     <string name="add">Add</string>
     <string name="add_item">Add a new item</string>
     <string name="title_activity_edit_item">EditItemActivity</string>
@@ -11,6 +11,9 @@
     <string name="new_task">New To-do</string>
     <string name="edit_task">Edit To-do</string>
     <string name="view_task">View To-do</string>
+    <string name="location">Location</string>
+    <string name="add_location">Set task reminder location</string>
+    <string name="location_filler">You can set a location for the to-do task here. You will receive a reminder notification if you are in the location neighbourhood.</string>
 
     <string-array name="priorities">
         <item>LOW</item>

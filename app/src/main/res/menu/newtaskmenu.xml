@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_save_new_item"
-        android:icon="@drawable/ic_done_white_24dp"
+        android:icon="@drawable/ic_save_white_24dp"
         android:orderInCategory="100"
         android:title="Save Task"
         simpletodo:showAsAction="always" />
