@@ -165,7 +165,7 @@ public class ViewTodoItemActivity extends AppCompatActivity {
             String month = (String) android.text.format.DateFormat.format("MM", dueDate); //06
             String year = (String) android.text.format.DateFormat.format("yyyy", dueDate); //2013
             String day = (String) android.text.format.DateFormat.format("dd", dueDate); //20
-            String dueDateStr = getStringForDate(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+            String dueDateStr = getStringForDate(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(day));
             tvCalendar.setText(dueDateStr);
 
 
@@ -180,7 +180,6 @@ public class ViewTodoItemActivity extends AppCompatActivity {
             ivNavigate = (ImageView) findViewById(R.id.ivNavigate);
             ivGoogleStaticImgForLocation = (ImageView) findViewById(R.id.googleStaticImgForLocation);
             tvLocation.setText(todoItem.placeName + "\n" + todoItem.placeAddress);
-            Log.i("SAG", "hello: " + todoItem.latitude);
             latitude = todoItem.latitude;
             longitude = todoItem.longitude;
             if (latitude != null && longitude != null) {

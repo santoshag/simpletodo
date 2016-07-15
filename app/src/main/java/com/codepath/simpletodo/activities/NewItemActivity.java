@@ -230,43 +230,11 @@ public class NewItemActivity extends AppCompatActivity {
         try{
         IntentFilter filter = new IntentFilter(PROX_ALERT_INTENT);
         registerReceiver(new ProximityIntentReceiver(), filter);
-        Log.i("SAG", "intent registerred " + latitude + " " + longitude);
+        Log.i("SAG", "intent registerred " + latitude + " " + longitude + " itemid: " + itemId);
         }catch (SecurityException e){
             e.printStackTrace();
         }
 
-
-
-        Location location = getLastKnownLocation();
-
-        // Initialize the location fields
-        if (location != null) {
-            System.out.println("SAG Provider has been selected." + location.getLatitude() + " " + location.getLongitude());
-
-        } else {
-            System.out.println(" SAG Location is null.");
-
-        }
-
-    }
-
-    LocationManager mLocationManager;
-
-    private Location getLastKnownLocation() {
-        mLocationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
-        List<String> providers = mLocationManager.getProviders(true);
-        Location bestLocation = null;
-        for (String provider : providers) {
-            Location l = mLocationManager.getLastKnownLocation(provider);
-            if (l == null) {
-                continue;
-            }
-            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
-                // Found best last known location: %s", l);
-                bestLocation = l;
-            }
-        }
-        return bestLocation;
     }
 
     public void navigateWithGMaps(View view){
@@ -291,7 +259,7 @@ public class NewItemActivity extends AppCompatActivity {
 
     }
 
-        public void setLocation(View view) throws GooglePlayServicesNotAvailableException, GooglePlayServicesRepairableException {
+    public void setLocation(View view) throws GooglePlayServicesNotAvailableException, GooglePlayServicesRepairableException {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
         startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
     }

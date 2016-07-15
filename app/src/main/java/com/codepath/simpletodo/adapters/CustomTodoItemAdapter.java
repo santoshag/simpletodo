@@ -71,7 +71,7 @@ public class CustomTodoItemAdapter extends ArrayAdapter<TodoItem> {
             e.printStackTrace();
         }
 
-        if(item.placeName != null){
+        if(item.isLocationSet){
             TextView tvLocationName = (TextView) convertView.findViewById(R.id.tvLocationName);
             ImageView ivLocation = (ImageView) convertView.findViewById(R.id.ivLocation);
             tvLocationName.setText(item.placeName);
