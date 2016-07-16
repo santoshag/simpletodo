@@ -34,9 +34,11 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
+
 **Version 1.0**
 
 <img src='hooplademo.gif' title='Video Walkthrough Version 1.0' width='' alt='Video Walkthrough' />
+
 
 
 **Version 2.0**
