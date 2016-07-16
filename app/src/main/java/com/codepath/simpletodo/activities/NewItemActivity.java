@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -26,7 +25,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.codepath.simpletodo.R;
 import com.codepath.simpletodo.models.TodoItem;
@@ -35,13 +33,11 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import org.apache.http.client.HttpClient;
@@ -192,8 +188,8 @@ public class NewItemActivity extends AppCompatActivity {
         TodoItem newItem = new TodoItem(etTitle.getText().toString(), etNotes.getText().toString(), spPriority.getSelectedItemPosition(), calendar.getTime().toString(), isLocationSet, placeName, placeAddress, latitude, longitude);
         newItem.save();
 
-        if (latitude != null && longitude != null) {
-            Toast.makeText(this, "itemid:" + newItem.getId(), Toast.LENGTH_SHORT);
+        if (isLocationSet) {
+            Log.i("SAG", "setting proximity alert for itemid: " + newItem.getId());
             saveProximityAlertPoint(latitude, longitude, newItem.getId());
         }
 
@@ -203,7 +199,7 @@ public class NewItemActivity extends AppCompatActivity {
 
         Intent intent = new Intent(PROX_ALERT_INTENT);
         intent.putExtra("itemId", itemId);
-        PendingIntent proximityIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        PendingIntent proximityIntent = PendingIntent.getBroadcast(this, itemId.intValue(), intent, 0);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -230,7 +226,8 @@ public class NewItemActivity extends AppCompatActivity {
         try{
         IntentFilter filter = new IntentFilter(PROX_ALERT_INTENT);
         registerReceiver(new ProximityIntentReceiver(), filter);
-        Log.i("SAG", "intent registerred " + latitude + " " + longitude + " itemid: " + itemId);
+            Log.i("SAG", "intent registerred " + latitude + " " + longitude + " itemid: " + itemId
+            );
         }catch (SecurityException e){
             e.printStackTrace();
         }
@@ -291,17 +288,12 @@ public class NewItemActivity extends AppCompatActivity {
         }
     }
 
-
     private String getStringForDate(int year, int month, int day){
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
         calendar.set(year, month, day);
         Date date = calendar.getTime();
         return new SimpleDateFormat("EEE", Locale.ENGLISH).format(date.getTime())  + ", " + new SimpleDateFormat("MMM", Locale.ENGLISH).format(date.getTime()) + " " + new SimpleDateFormat("dd", Locale.ENGLISH).format(date.getTime()) + " " + new SimpleDateFormat("yyyy", Locale.ENGLISH).format(date.getTime());
-
     }
-
-
-
 
 }

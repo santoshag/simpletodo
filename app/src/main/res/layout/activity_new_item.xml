@@ -25,7 +25,7 @@
 
         <EditText
             android:id="@+id/etItemTitle"
-            android:layout_width="0dp"
+            android:layout_width="1dp"
             android:layout_height="56dp"
             android:layout_weight="0.8"
             android:textAlignment="viewStart">
@@ -53,7 +53,7 @@
 
         <EditText
             android:id="@+id/etItemNotes"
-            android:layout_width="0dp"
+            android:layout_width="1dp"
             android:layout_height="60dp"
             android:layout_weight="0.8" />
     </LinearLayout>

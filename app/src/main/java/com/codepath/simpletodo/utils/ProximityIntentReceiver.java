@@ -42,10 +42,9 @@ public class ProximityIntentReceiver extends BroadcastReceiver {
             Log.d(getClass().getSimpleName(), "exiting");
         }
 
-        Toast.makeText(context, "received finally with id: " + itemId ,  Toast.LENGTH_SHORT).show();
 
         // prepare intent which is triggered if the
-// notification is selected
+        // notification is selected
 
         Intent notificationIntent = new Intent(context, ViewTodoItemActivity.class);
         notificationIntent.putExtra("dbItemIndex", itemId);
@@ -53,13 +52,14 @@ public class ProximityIntentReceiver extends BroadcastReceiver {
         PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), notificationIntent, 0);
 
 
-
+        int color = context.getResources().getColor(R.color.primary);
         // build notification
         // the addAction re-use the same intent to keep the example short
         Notification n  = new Notification.Builder(context)
                 .setContentTitle(todoItem.title)
                 .setContentText("Task reminder based on your location")
                 .setSmallIcon(R.drawable.ic_app_icon)
+                .setColor(color)
                 .setContentIntent(pIntent)
                 .setAutoCancel(true)
                 .build();

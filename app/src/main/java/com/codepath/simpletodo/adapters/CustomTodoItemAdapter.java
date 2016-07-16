@@ -44,6 +44,8 @@ public class CustomTodoItemAdapter extends ArrayAdapter<TodoItem> {
         TextView tvPriority = (TextView) convertView.findViewById(R.id.tvPriority);
         TextView tvDueDate = (TextView) convertView.findViewById(R.id.tvDueDate);
         View vPriorityLine = (View)  convertView.findViewById(R.id.vPriorityLine);
+        TextView tvLocationName = (TextView) convertView.findViewById(R.id.tvLocationName);
+        ImageView ivLocation = (ImageView) convertView.findViewById(R.id.ivLocation);
 
         // Populate the data into the template view using the data object
         tvTitle.setText(item.title);
@@ -72,8 +74,6 @@ public class CustomTodoItemAdapter extends ArrayAdapter<TodoItem> {
         }
 
         if(item.isLocationSet){
-            TextView tvLocationName = (TextView) convertView.findViewById(R.id.tvLocationName);
-            ImageView ivLocation = (ImageView) convertView.findViewById(R.id.ivLocation);
             tvLocationName.setText(item.placeName);
             tvLocationName.setVisibility(View.VISIBLE);
             ivLocation.setVisibility(View.VISIBLE);

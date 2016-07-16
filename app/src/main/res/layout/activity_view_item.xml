@@ -29,10 +29,10 @@
             android:id="@+id/tvItemTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.15"
+            android:layout_weight="0.77"
             android:paddingTop="16dp"
             android:text="@string/taskName"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="20dp" />
 
@@ -61,10 +61,10 @@
             android:id="@+id/tvItemNotes"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.15"
+            android:layout_weight="0.79"
             android:paddingTop="16dp"
             android:text="@string/taskName"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="20dp" />
     </LinearLayout>
