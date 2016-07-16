@@ -35,10 +35,14 @@ The following **optional** features are implemented:
 Here's a walkthrough of implemented user stories:
 
 **Version 1.0**
+
 <img src='hooplademo.gif' title='Video Walkthrough Version 1.0' width='' alt='Video Walkthrough' />
 
+
 **Version 2.0**
+
 <img src='hoopla_demo_2.0.gif' title='Video Walkthrough Version 2.0' width='' alt='Video Walkthrough' />
+
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
