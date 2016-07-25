@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println("position: " + position + "  id:" + id + " itemId: " + itemToBeDeleted.getId());
                         todoItems.remove(position);
                         TodoItem.delete(TodoItem.class, itemToBeDeleted.getId());
+                        adapterTodoItems.remove(itemToBeDeleted);
                         adapterTodoItems.notifyDataSetChanged();
 
                     }

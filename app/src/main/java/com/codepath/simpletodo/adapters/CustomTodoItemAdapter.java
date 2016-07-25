@@ -1,8 +1,5 @@
 package com.codepath.simpletodo.adapters;
 
-import com.codepath.simpletodo.R;
-import com.codepath.simpletodo.models.TodoItem;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -11,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.codepath.simpletodo.R;
+import com.codepath.simpletodo.models.TodoItem;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -46,6 +46,8 @@ public class CustomTodoItemAdapter extends ArrayAdapter<TodoItem> {
         View vPriorityLine = (View)  convertView.findViewById(R.id.vPriorityLine);
         TextView tvLocationName = (TextView) convertView.findViewById(R.id.tvLocationName);
         ImageView ivLocation = (ImageView) convertView.findViewById(R.id.ivLocation);
+        //clear out image from image view
+        ivLocation.setImageResource(0);
 
         // Populate the data into the template view using the data object
         tvTitle.setText(item.title);

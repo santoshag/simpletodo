@@ -40,7 +40,6 @@ Here's a walkthrough of implemented user stories:
 <img src='hooplademo.gif' title='Video Walkthrough Version 1.0' width='' alt='Video Walkthrough' />
 
 
-
 **Version 2.0**
 
 <img src='hoopla_demo_2.0.gif' title='Video Walkthrough Version 2.0' width='' alt='Video Walkthrough' />
