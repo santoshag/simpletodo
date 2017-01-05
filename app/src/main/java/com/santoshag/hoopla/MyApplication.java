@@ -1,11 +1,4 @@
-package com.codepath.simpletodo;
-
-import android.app.Application;
-import android.content.res.Configuration;
-
-import com.activeandroid.ActiveAndroid;
-
-import junit.framework.Test;
+package com.santoshag.hoopla;
 
 
 /**

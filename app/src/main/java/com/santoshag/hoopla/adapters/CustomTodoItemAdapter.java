@@ -1,4 +1,4 @@
-package com.codepath.simpletodo.adapters;
+package com.santoshag.hoopla.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -9,8 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.codepath.simpletodo.R;
-import com.codepath.simpletodo.models.TodoItem;
+import com.santoshag.hoopla.models.TodoItem;
+import com.santoshag.hoopla.R;
 
 import java.text.DateFormat;
 import java.text.ParseException;

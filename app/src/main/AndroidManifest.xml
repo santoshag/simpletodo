@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.codepath.simpletodo">
+    package="com.santoshag.hoopla">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -14,7 +14,7 @@
     <application
         android:name="com.activeandroid.app.Application"
         android:allowBackup="true"
-        android:icon="@drawable/hoopla_icon_48dp"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -26,7 +26,7 @@
             android:value="1" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.codepath.simpletodo.models.TodoItem" />
+            android:value="com.santoshag.hoopla.models.TodoItem" />
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -53,7 +53,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name="com.codepath.simpletodo.utils.ProximityIntentReceiver"></receiver>
+        <receiver android:name=".utils.ProximityIntentReceiver"></receiver>
 
     </application>
 

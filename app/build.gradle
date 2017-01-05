@@ -6,7 +6,7 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        applicationId "com.codepath.simpletodo"
+        applicationId "com.santoshag.hoopla"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1

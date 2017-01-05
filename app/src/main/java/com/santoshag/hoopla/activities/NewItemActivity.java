@@ -1,4 +1,4 @@
-package com.codepath.simpletodo.activities;
+package com.santoshag.hoopla.activities;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
@@ -26,9 +26,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.codepath.simpletodo.R;
-import com.codepath.simpletodo.models.TodoItem;
-import com.codepath.simpletodo.utils.ProximityIntentReceiver;
+import com.santoshag.hoopla.models.TodoItem;
+import com.santoshag.hoopla.utils.ProximityIntentReceiver;
+import com.santoshag.hoopla.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -67,7 +67,7 @@ public class NewItemActivity extends AppCompatActivity {
 
     int PLACE_PICKER_REQUEST = 1;
     private static final String PROX_ALERT_INTENT =
-            "com.codepath.simpletodo.ProximityAlert";
+            "com.santoshag.hoopla.ProximityAlert";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

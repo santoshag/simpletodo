@@ -1,9 +1,8 @@
-package com.codepath.simpletodo.models;
+package com.santoshag.hoopla.models;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by santoshag on 5/31/16.

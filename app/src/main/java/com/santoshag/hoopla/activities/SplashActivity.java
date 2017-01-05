@@ -1,25 +1,16 @@
-package com.codepath.simpletodo.activities;
+package com.santoshag.hoopla.activities;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.graphics.drawable.DrawableWrapper;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.RelativeLayout;
-
-import com.codepath.simpletodo.R;
 
 public class SplashActivity extends AppCompatActivity {
 
     /**
      * Duration of wait
      **/
-    private final int SPLASH_DISPLAY_LENGTH = 2000;
+    private final int SPLASH_DISPLAY_LENGTH = 1000;
 
     /**
      * Called when the activity is first created.

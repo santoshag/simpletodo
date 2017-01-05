@@ -1,6 +1,7 @@
-package com.codepath.simpletodo.fragments;
+package com.santoshag.hoopla.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -11,7 +12,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -32,14 +32,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
-import com.codepath.simpletodo.R;
-import com.codepath.simpletodo.activities.MainActivity;
-import com.codepath.simpletodo.models.TodoItem;
-import com.codepath.simpletodo.utils.ProximityIntentReceiver;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.santoshag.hoopla.R;
+import com.santoshag.hoopla.activities.MainActivity;
+import com.santoshag.hoopla.models.TodoItem;
+import com.santoshag.hoopla.utils.ProximityIntentReceiver;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -51,7 +51,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 // ...
 
@@ -80,7 +79,7 @@ public class EditTaskFragment extends DialogFragment {
 
     int PLACE_PICKER_REQUEST = 1;
     private static final String PROX_ALERT_INTENT =
-            "com.codepath.simpletodo.ProximityAlert";
+            "com.santoshag.hoopla.ProximityAlert";
 
     public EditTaskFragment() {
         // Empty constructor is required for DialogFragment
@@ -371,7 +370,7 @@ public class EditTaskFragment extends DialogFragment {
 
     }
 
-
+    @SuppressLint("ValidFragment")
     public class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
         @Override
@@ -388,7 +387,7 @@ public class EditTaskFragment extends DialogFragment {
 
     }
 
-    private String getStringForDate(int year, int month, int day){
+    private static String getStringForDate(int year, int month, int day){
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
         calendar.set(year, month, day);

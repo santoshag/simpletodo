@@ -1,4 +1,4 @@
-package com.codepath.simpletodo.utils;
+package com.santoshag.hoopla.utils;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -6,17 +6,13 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.location.LocationManager;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.activeandroid.query.Select;
-import com.codepath.simpletodo.R;
-import com.codepath.simpletodo.activities.ViewTodoItemActivity;
-import com.codepath.simpletodo.models.TodoItem;
+import com.santoshag.hoopla.R;
+import com.santoshag.hoopla.activities.ViewTodoItemActivity;
+import com.santoshag.hoopla.models.TodoItem;
 
 public class ProximityIntentReceiver extends BroadcastReceiver {
 
@@ -52,13 +48,13 @@ public class ProximityIntentReceiver extends BroadcastReceiver {
         PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), notificationIntent, 0);
 
 
-        int color = context.getResources().getColor(R.color.primary);
+        int color = context.getResources().getColor(R.color.app_icon_color);
         // build notification
         // the addAction re-use the same intent to keep the example short
         Notification n  = new Notification.Builder(context)
                 .setContentTitle(todoItem.title)
                 .setContentText("Task reminder based on your location")
-                .setSmallIcon(R.drawable.ic_app_icon)
+                .setSmallIcon(R.drawable.ic_launcher)
                 .setColor(color)
                 .setContentIntent(pIntent)
                 .setAutoCancel(true)
@@ -71,7 +67,7 @@ public class ProximityIntentReceiver extends BroadcastReceiver {
         notificationManager.notify(itemId.intValue(), n);
 
 //        Intent i = new Intent();
-//        i.set("com.codepath.simpletodo.activities", "com.codepath.simpletodo.activities.ViewTodoItemActivity");
+//        i.set("com.santoshag.hoopla.activities", "ViewTodoItemActivity");
 //        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        i.putExtra("dbItemIndex", itemId);
 //        context.startActivity(i);

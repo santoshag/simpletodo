@@ -9,5 +9,6 @@
     <color name="priority_high">#DD2C00</color>
     <color name="color_black">#37474F</color>
     <color name="color_accent_2">#90A4AE</color>
+    <color name="app_icon_color">#FFAB47BC</color>
 
 </resources>
