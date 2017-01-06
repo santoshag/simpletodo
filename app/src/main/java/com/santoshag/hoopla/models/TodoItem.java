@@ -64,5 +64,19 @@ public class TodoItem extends Model {
         return "";
     }
 
+    @Override
+    public String toString() {
+        return "TodoItem{" +
+                "title='" + title + '\'' +
+                ", notes='" + notes + '\'' +
+                ", priority=" + priority +
+                ", dueDate='" + dueDate + '\'' +
+                ", isLocationSet=" + isLocationSet +
+                ", placeName='" + placeName + '\'' +
+                ", placeAddress='" + placeAddress + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
+    }
 }
 

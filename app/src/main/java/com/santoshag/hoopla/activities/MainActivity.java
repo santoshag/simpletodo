@@ -1,21 +1,20 @@
 package com.santoshag.hoopla.activities;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import com.activeandroid.query.Select;
 import com.santoshag.hoopla.R;
 import com.santoshag.hoopla.adapters.CustomTodoItemAdapter;
+import com.santoshag.hoopla.decorators.DividerItemDecoration;
 import com.santoshag.hoopla.models.TodoItem;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     CustomTodoItemAdapter adapterTodoItems;
     ArrayList<TodoItem> todoItems;
-    ListView lvItems;
+    RecyclerView rvItems;
     EditText etEditItemText;
 
 
@@ -40,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         //prepare list view using custom adapter
         populateTodoItems();
 
-        //delete item on long click
-        lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        /*//delete item on long click
+        rvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 confirmDelete(position);
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //start add new todo activity
-        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        rvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TodoItem selectedItem = adapterTodoItems.getItem(position);
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("dbItemIndex", selectedItem.getId());
                 startActivity(i);
             }
-        });
+        });*/
     }
 
     //generate tool bar actions
@@ -95,9 +94,13 @@ public class MainActivity extends AppCompatActivity {
         todoItems = new ArrayList<TodoItem>(queryResults);
         adapterTodoItems =
                 new CustomTodoItemAdapter(this, todoItems);
-        lvItems = (ListView) findViewById(R.id.lvItems);
-        lvItems.setAdapter(adapterTodoItems);
+        rvItems = (RecyclerView) findViewById(R.id.rvItems);
+        rvItems.setAdapter(adapterTodoItems);
+        rvItems.setLayoutManager(new LinearLayoutManager(this));
 
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
+        rvItems.addItemDecoration(itemDecoration);
     }
 
 
@@ -117,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         // set title
         alertDialogBuilder.setTitle("Delete Task");
         alertDialogBuilder.setIcon(R.drawable.ic_delete_black_18dp);
-        TodoItem itemToBeDeleted = adapterTodoItems.getItem(position);
+       /* TodoItem itemToBeDeleted = adapterTodoItems.getItem(position);
 
         // set dialog message
         alertDialogBuilder
@@ -148,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alertDialog = alertDialogBuilder.create();
 
         // show it
-        alertDialog.show();
+        alertDialog.show();*/
 
     }
 
