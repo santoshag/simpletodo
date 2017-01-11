@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     public void populateTodoItems() {
         // Query ActiveAndroid for list of todo items currenty sorted by priority
         List<TodoItem> queryResults = new Select().from(TodoItem.class)
-                .orderBy("Priority DESC").execute();
+                .execute();
         // Load the result into the adapter using `addAll`
         todoItems = new ArrayList<TodoItem>(queryResults);
         adapterTodoItems =
@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
     public List<TodoItem> getAllTodoItems() {
         return new Select()
                 .from(TodoItem.class)
-                .orderBy("Priority DESC")
                 .execute();
     }
 
