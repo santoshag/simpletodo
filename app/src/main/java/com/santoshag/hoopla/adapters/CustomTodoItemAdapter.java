@@ -37,6 +37,8 @@ public class CustomTodoItemAdapter extends RecyclerView.Adapter<CustomTodoItemAd
         public View vPriorityLine;
         public TextView tvLocationName;
         public ImageView ivLocation;
+        public ImageView ivPriorityCircle;
+
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -51,6 +53,7 @@ public class CustomTodoItemAdapter extends RecyclerView.Adapter<CustomTodoItemAd
 //             vPriorityLine = (View)  itemView.findViewById(R.id.vPriorityLine);
             tvLocationName = (TextView) itemView.findViewById(R.id.tvLocationName);
             ivLocation = (ImageView) itemView.findViewById(R.id.ivLocation);
+            ivPriorityCircle = (ImageView) itemView.findViewById(R.id.ivPriorityCircle);
         }
     }
 
@@ -101,6 +104,10 @@ public class CustomTodoItemAdapter extends RecyclerView.Adapter<CustomTodoItemAd
 
         TextView tvLocationName = viewHolder.tvLocationName;
 
+        ImageView ivPriorityCircle = viewHolder.ivPriorityCircle;
+
+        ivPriorityCircle.setImageResource(getPriorityColor(todoItem.priority));
+
         ImageView ivLocation = viewHolder.ivLocation;
         //clear out image from image view
         ivLocation.setImageResource(0);
@@ -117,8 +124,8 @@ public class CustomTodoItemAdapter extends RecyclerView.Adapter<CustomTodoItemAd
             String year = (String) android.text.format.DateFormat.format("yyyy", startDate); //2013
             String day = (String) android.text.format.DateFormat.format("dd", startDate); //20
 
-            String dueDateText = "  " + dayOfTheWeek.substring(0, 3) + ", " + stringMonth + " " + day + " " + year;
-            tvDueDate.setText(dueDateText);
+            String dueDateText = stringMonth + " " + ordinal(Integer.parseInt(day)) + ", " + year;
+            tvDueDate.setText(dueDateText.toUpperCase());
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -146,13 +153,26 @@ public class CustomTodoItemAdapter extends RecyclerView.Adapter<CustomTodoItemAd
     public int getPriorityColor(int priority) {
         switch (priority) {
             case 0:
-                return mContext.getResources().getColor(R.color.priority_low);
+                return  R.drawable.circles_light_green;
             case 1:
-                return mContext.getResources().getColor(R.color.priority_medium);
+                return  R.drawable.circles_light_blue;
             case 2:
-                return mContext.getResources().getColor(R.color.priority_high);
+                return  R.drawable.circles_red;
         }
         return mContext.getResources().getColor(R.color.priority_medium);
     }
 
+
+    public static String ordinal(int i) {
+        String[] sufixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+        switch (i % 100) {
+            case 11:
+            case 12:
+            case 13:
+                return i + "th";
+            default:
+                return i + sufixes[i % 10];
+
+        }
+    }
 }

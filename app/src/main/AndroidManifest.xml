@@ -12,7 +12,7 @@
         android:required="true" />
 
     <application
-        android:name="com.activeandroid.app.Application"
+        android:name=".HooplaApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -28,18 +28,21 @@
             android:name="AA_MODELS"
             android:value="com.santoshag.hoopla.models.TodoItem" />
 
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAZlHKhCex4OpVSADaDv5ZHDHUTuEBs5MM" />
 
-        <activity android:name=".activities.MainActivity">
-        </activity>
+        <activity
+            android:name=".activities.MainActivity"
+
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activities.NewItemActivity"
-            android:parentActivityName=".activities.MainActivity"/>
+            android:parentActivityName=".activities.MainActivity" />
         <activity android:name=".activities.ViewTodoItemActivity" />
         <!-- Splash screen -->
         <activity

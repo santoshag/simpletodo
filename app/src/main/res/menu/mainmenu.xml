@@ -2,11 +2,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:simpletodo="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/action_add_new_item"
-        android:icon="@drawable/ic_add_white_24dp"
-        android:orderInCategory="100"
-        android:title="New Task"
-        simpletodo:showAsAction="always" />
-
 </menu>

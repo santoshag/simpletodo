@@ -1,15 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true"
     tools:context=".activities.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvItems"
+    <include layout="@layout/toolbar"></include>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_below="@id/ivLocation"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".activities.MainActivity">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvItems"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_color" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="20dp"
+        app:backgroundTint="@color/primary"
+        android:onClick="onClickAddNewTask"
+        android:src="@drawable/ic_add_white_24dp"
+        app:fabSize="mini" />
+
+</android.support.design.widget.CoordinatorLayout>

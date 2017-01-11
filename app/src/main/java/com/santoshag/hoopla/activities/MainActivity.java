@@ -1,15 +1,19 @@
 package com.santoshag.hoopla.activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 import com.santoshag.hoopla.R;
@@ -20,21 +24,29 @@ import com.santoshag.hoopla.models.TodoItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class MainActivity extends AppCompatActivity {
     CustomTodoItemAdapter adapterTodoItems;
     ArrayList<TodoItem> todoItems;
     RecyclerView rvItems;
     EditText etEditItemText;
-
+    TextView toolbar_title;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         //set action bar icon
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.ic_launcher);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //prepare list view using custom adapter
         populateTodoItems();
@@ -61,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
         });*/
     }
 
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
+    }
+
     //generate tool bar actions
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,17 +91,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // action with ID action_refresh was selected
-            case R.id.action_add_new_item:
-                Intent i = new Intent(MainActivity.this, NewItemActivity.class);
-                startActivity(i);
-                break;
             default:
                 break;
         }
 
         return true;
     }
-
 
     public void populateTodoItems() {
         // Query ActiveAndroid for list of todo items currenty sorted by priority
@@ -155,6 +167,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void onClickAddNewTask(View view) {
+        Intent i = new Intent(MainActivity.this, NewItemActivity.class);
+        startActivity(i);
+    }
 }
 
 

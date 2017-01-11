@@ -10,5 +10,7 @@
     <color name="color_black">#37474F</color>
     <color name="color_accent_2">#90A4AE</color>
     <color name="app_icon_color">#FFAB47BC</color>
+    <color name="bg_color">#37474F</color>
+    <color name="primaryTextColor">#000000</color>
 
 </resources>
