@@ -11,12 +11,12 @@
 
     <ImageView
         android:id="@+id/ivPriorityCircle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignBottom="@+id/tvTitle"
         android:layout_alignTop="@+id/tvTitle"
-        android:padding="4dp"
-        android:src="@drawable/circles_red" />
+        android:src="@drawable/circle_priority"
+        android:tint="@color/primary"/>
 
     <TextView
         android:id="@+id/tvDueDate"

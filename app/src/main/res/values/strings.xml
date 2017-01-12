@@ -14,11 +14,14 @@
     <string name="location">Location</string>
     <string name="add_location">Set task reminder location</string>
     <string name="location_filler">You can set a location for the to-do task here. You will receive a reminder notification if you are in the location neighbourhood.</string>
+    <string name="etTitleHint"><font size="15">Add a name to the task</font></string>
+    <string name="etNotesHint"><font size="15">Add some notes</font></string>
 
     <string-array name="priorities">
         <item>LOW</item>
         <item>MEDIUM</item>
         <item>HIGH</item>
     </string-array>
+
 
 </resources>

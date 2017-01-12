@@ -40,6 +40,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ViewTodoItemActivity extends AppCompatActivity {
     TextView tvItemTitle;
     TextView tvItemNotes;
@@ -58,15 +60,20 @@ public class ViewTodoItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_item);
 
         //set tool bar
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+/*        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(R.string.view_task);
-        getSupportActionBar().setIcon(R.drawable.ic_app_icon);
+        getSupportActionBar().setIcon(R.drawable.ic_app_icon);*/
 
         dbItemIndex = getIntent().getLongExtra("dbItemIndex", -1);
         todoItem = (TodoItem) new Select().from(TodoItem.class)
                 .where("id = ?", dbItemIndex).executeSingle();
 
         populateItemFields();
+    }
+
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 
     //set tool bar

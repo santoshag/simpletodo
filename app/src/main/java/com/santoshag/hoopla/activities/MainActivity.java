@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,6 +20,8 @@ import com.activeandroid.query.Select;
 import com.santoshag.hoopla.R;
 import com.santoshag.hoopla.adapters.CustomTodoItemAdapter;
 import com.santoshag.hoopla.decorators.DividerItemDecoration;
+import com.santoshag.hoopla.decorators.ItemClickSupport;
+import com.santoshag.hoopla.decorators.SimpleItemTouchHelperCallback;
 import com.santoshag.hoopla.models.TodoItem;
 
 import java.util.ArrayList;
@@ -113,6 +116,26 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.ItemDecoration itemDecoration = new
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
         rvItems.addItemDecoration(itemDecoration);
+
+
+        ItemTouchHelper.Callback callback =
+                new SimpleItemTouchHelperCallback(adapterTodoItems);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(rvItems);
+
+
+        ItemClickSupport.addTo(rvItems).setOnItemClickListener(
+                new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        TodoItem selectedItem = todoItems.get(position);
+                        Intent i = new Intent(MainActivity.this, ViewTodoItemActivity.class);
+                        i.putExtra("position", position);
+                        i.putExtra("dbItemIndex", selectedItem.getId());
+                        startActivity(i);
+                    }
+                }
+        );
     }
 
 
@@ -170,6 +193,8 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this, NewItemActivity.class);
         startActivity(i);
     }
+
+
 }
 
 

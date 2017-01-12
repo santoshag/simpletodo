@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.santoshag.hoopla"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -39,4 +39,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile(group: 'com.ribell', name: 'colorpickerview', version: '1.0.1', ext: 'aar')
 }

@@ -1,6 +1,7 @@
 package com.santoshag.hoopla.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.santoshag.hoopla.R;
 import com.santoshag.hoopla.models.TodoItem;
@@ -22,10 +24,27 @@ import java.util.Locale;
 /**
  * Created by santoshag on 5/31/16.
  */
-public class CustomTodoItemAdapter extends RecyclerView.Adapter<CustomTodoItemAdapter.ViewHolder> {
+public class CustomTodoItemAdapter extends RecyclerView.Adapter<CustomTodoItemAdapter.ViewHolder> implements ItemTouchHelperAdapter {
 
 
     private static final String TAG = "CustomTodoItemAdapter";
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        //pass
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+
+        TodoItem itemToBeDeleted = mItems.get(position);
+        System.out.println("position: " + position + " itemId: " + itemToBeDeleted.getId());
+        mItems.remove(position);
+        TodoItem.delete(TodoItem.class, itemToBeDeleted.getId());
+        notifyItemRemoved(position);
+
+        Toast.makeText(getContext(), itemToBeDeleted.title + " task deleted", Toast.LENGTH_SHORT).show();
+    }
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
@@ -105,8 +124,9 @@ public class CustomTodoItemAdapter extends RecyclerView.Adapter<CustomTodoItemAd
         TextView tvLocationName = viewHolder.tvLocationName;
 
         ImageView ivPriorityCircle = viewHolder.ivPriorityCircle;
+        ivPriorityCircle.setColorFilter(ContextCompat.getColor(getContext(),getPriorityColor(todoItem.priority)));
 
-        ivPriorityCircle.setImageResource(getPriorityColor(todoItem.priority));
+//        ivPriorityCircle.setBackgroundColor(getPriorityColor(todoItem.priority));
 
         ImageView ivLocation = viewHolder.ivLocation;
         //clear out image from image view
@@ -151,15 +171,27 @@ public class CustomTodoItemAdapter extends RecyclerView.Adapter<CustomTodoItemAd
 
 
     public int getPriorityColor(int priority) {
+
         switch (priority) {
             case 0:
-                return  R.drawable.circles_light_green;
+                return R.color.color0;
             case 1:
-                return  R.drawable.circles_light_blue;
+                return R.color.color1;
             case 2:
-                return  R.drawable.circles_red;
+                return R.color.color2;
+            case 3:
+                return R.color.color3;
+            case 4:
+                return R.color.color4;
+            case 5:
+                return R.color.color5;
+            case 6:
+                return R.color.color6;
+            case 7:
+                return R.color.color7;
+            default:
+                return R.color.color0;
         }
-        return mContext.getResources().getColor(R.color.priority_medium);
     }
 
 

@@ -23,16 +23,22 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.santoshag.hoopla.models.TodoItem;
-import com.santoshag.hoopla.utils.ProximityIntentReceiver;
-import com.santoshag.hoopla.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.ribell.colorpickerview.ColorPickerView;
+import com.ribell.colorpickerview.interfaces.ColorPickerViewListener;
+import com.santoshag.hoopla.R;
+import com.santoshag.hoopla.adapters.CustomTodoItemAdapter;
+import com.santoshag.hoopla.models.TodoItem;
+import com.santoshag.hoopla.utils.ProximityIntentReceiver;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -40,15 +46,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class NewItemActivity extends AppCompatActivity {
+public class NewItemActivity extends AppCompatActivity implements ColorPickerViewListener {
+    private static final String TAG = "NewItemActivity";
     EditText etTitle;
     EditText etNotes;
-    Spinner spPriority;
     DatePicker dpDueDate;
     LocationManager locationManager;
     String placeAddress;
@@ -56,6 +60,7 @@ public class NewItemActivity extends AppCompatActivity {
     int year;
     int month;
     int day;
+    int priority_color = 0;
     Double latitude;
     Double longitude;
     TextView tvCalendar;
@@ -79,6 +84,11 @@ public class NewItemActivity extends AppCompatActivity {
         ivNavigate = (ImageView) findViewById(R.id.ivNavigate);
         ivDeleteLocation = (ImageView) findViewById(R.id.ivDeleteLocation);
         ivGoogleStaticImgForLocation = (ImageView) findViewById(R.id.googleStaticImgForLocation);
+        ColorPickerView colorPickerView = (ColorPickerView) findViewById(R.id.nsvSpectrum);
+        colorPickerView.setListener(this);
+//        colorPickerView.onClick(colorPickerView, colorPickerView, 0);
+
+        onColorPickerClick(0);
 
         initDueDate();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -122,6 +132,11 @@ public class NewItemActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
+    }
+
     private void setImageViewLocationAndOptions(){
         AsyncTask<Void, Void, Bitmap> setImageFromUrl = new AsyncTask<Void, Void, Bitmap>(){
             @Override
@@ -154,8 +169,6 @@ public class NewItemActivity extends AppCompatActivity {
         };
         setImageFromUrl.execute();
 
-
-
     }
 
     //handle tool bar actions
@@ -164,9 +177,7 @@ public class NewItemActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // action with ID action_refresh was selected
             case R.id.action_save_new_item:
-                saveItem();
-                Intent i = new Intent(NewItemActivity.this, MainActivity.class);
-                startActivity(i);
+                saveItem(null);
                 break;
             default:
                 break;
@@ -175,23 +186,28 @@ public class NewItemActivity extends AppCompatActivity {
         return true;
     }
 
-    //save todo item to db
-    private void saveItem() {
+    public void cancelCreate(View view) {
+        finish();
+    }
+
+    public void saveItem(View view) {
         etTitle = (EditText) findViewById(R.id.etItemTitle);
         etNotes = (EditText) findViewById(R.id.etItemNotes);
-        spPriority = (Spinner) findViewById(R.id.spPriority);
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
         calendar.set(year, month, day);
 
         //store date as string as activeandroid had issues with serializing date
-        TodoItem newItem = new TodoItem(etTitle.getText().toString(), etNotes.getText().toString(), spPriority.getSelectedItemPosition(), calendar.getTime().toString(), isLocationSet, placeName, placeAddress, latitude, longitude);
+        TodoItem newItem = new TodoItem(etTitle.getText().toString(), etNotes.getText().toString(), priority_color, calendar.getTime().toString(), isLocationSet, placeName, placeAddress, latitude, longitude);
         newItem.save();
 
         if (isLocationSet) {
             Log.i("SAG", "setting proximity alert for itemid: " + newItem.getId());
             saveProximityAlertPoint(latitude, longitude, newItem.getId());
         }
+
+        Intent i = new Intent(NewItemActivity.this, MainActivity.class);
+        startActivity(i);
 
     }
 
@@ -284,7 +300,6 @@ public class NewItemActivity extends AppCompatActivity {
 
             String dueDate = getStringForDate(year, month, day);
             tvCalendar.setText(dueDate);
-
         }
     }
 
@@ -293,7 +308,14 @@ public class NewItemActivity extends AppCompatActivity {
         calendar.clear();
         calendar.set(year, month, day);
         Date date = calendar.getTime();
-        return new SimpleDateFormat("EEE", Locale.ENGLISH).format(date.getTime())  + ", " + new SimpleDateFormat("MMM", Locale.ENGLISH).format(date.getTime()) + " " + new SimpleDateFormat("dd", Locale.ENGLISH).format(date.getTime()) + " " + new SimpleDateFormat("yyyy", Locale.ENGLISH).format(date.getTime());
+//        String dueDateText = stringMonth + " " + ordinal(Integer.parseInt(day)) + ", " + year;
+
+        return new SimpleDateFormat("MMM", Locale.ENGLISH).format(date.getTime()) + " " + CustomTodoItemAdapter.ordinal(Integer.parseInt(new SimpleDateFormat("dd", Locale.ENGLISH).format(date.getTime()))) + ", " + new SimpleDateFormat("yyyy", Locale.ENGLISH).format(date.getTime());
+    }
+
+    @Override
+    public void onColorPickerClick(int colorPosition) {
+        priority_color = colorPosition;
     }
 
 }

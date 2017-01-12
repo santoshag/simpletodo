@@ -9,7 +9,7 @@ import com.activeandroid.annotation.Table;
  */
 
 @Table(name = "TodoItems")
-public class TodoItem extends Model {
+public class TodoItem extends Model implements Comparable<TodoItem>{
     public static int PRIORITY_LOW = 0;
     public static int PRIORITY_MEDIUM = 1;
     public static int PRIORITY_HIGH = 2;
@@ -77,6 +77,14 @@ public class TodoItem extends Model {
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 '}';
+    }
+
+    @Override
+    public int compareTo(TodoItem another) {
+        String anotherDate = another.dueDate;
+        String date = dueDate;
+
+        return 0;
     }
 }
 
