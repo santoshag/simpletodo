@@ -25,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -111,9 +113,15 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
         ivGoogleStaticImgForLocation = (ImageView) findViewById(R.id.googleStaticImgForLocation);
         ColorPickerView colorPickerView = (ColorPickerView) findViewById(R.id.nsvSpectrum);
         colorPickerView.setListener(this);
-//        colorPickerView.onClick(colorPickerView.getRootView(),(ViewGroup) colorPickerView.getRootView(), 0);
 
-        onColorPickerClick(0);
+        //set action bar icon
+        Window window = getWindow();
+        // clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        // finally change the color
+        window.setStatusBarColor(getResources().getColor(R.color.primary_light));
 
         initDueDate();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
