@@ -155,7 +155,7 @@ public class CustomTodoItemAdapter extends RecyclerView.Adapter<CustomTodoItemAd
         Log.i(TAG, todoItem.isLocationSet.toString());
 
         if (todoItem.isLocationSet) {
-            Log.i(TAG, todoItem.placeName);
+            Log.i(TAG, " " + todoItem.placeName);
             tvLocationName.setText(todoItem.placeName);
             tvLocationName.setVisibility(View.VISIBLE);
             ivLocation.setVisibility(View.VISIBLE);
@@ -170,7 +170,7 @@ public class CustomTodoItemAdapter extends RecyclerView.Adapter<CustomTodoItemAd
     }
 
 
-    public int getPriorityColor(int priority) {
+    public static int getPriorityColor(int priority) {
 
         switch (priority) {
             case 0:

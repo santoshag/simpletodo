@@ -28,9 +28,11 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.activeandroid.query.Select;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -47,11 +49,15 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
@@ -76,6 +82,15 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
     ImageView ivGoogleStaticImgForLocation;
     Boolean isLocationSet = false;
     Long itemId;
+    Long dbItemIndex;
+    TodoItem todoItem;
+    boolean editItem;
+    boolean changed = false;
+    @BindView(R.id.toolbarTitle)
+    TextView toolbarTitle;
+    @BindView(R.id.ivLogo)
+    ImageView ivLogo;
+
 
     int PLACE_PICKER_REQUEST = 1;
     private static final String PROX_ALERT_INTENT =
@@ -85,7 +100,10 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_item);
+        ButterKnife.bind(this);
 
+        etTitle = (EditText) findViewById(R.id.etItemTitle);
+        etNotes = (EditText) findViewById(R.id.etItemNotes);
         tvCalendar = (TextView) findViewById(R.id.tvCalendar);
         tvLocation = (TextView) findViewById(R.id.tvLocation);
         ivNavigate = (ImageView) findViewById(R.id.ivNavigate);
@@ -99,9 +117,75 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
 
         initDueDate();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+         editItem = getIntent().getBooleanExtra("editItem", false);
+
+        if (editItem) {
+            dbItemIndex = getIntent().getLongExtra("dbItemIndex", -1);
+            todoItem = (TodoItem) new Select().from(TodoItem.class)
+                    .where("id = ?", dbItemIndex).executeSingle();
+            toolbarTitle.setText(todoItem.title);
+            populateItemFields();
+            ivLogo.setImageResource(R.drawable.circle3);
+            ivLogo.setColorFilter(ContextCompat.getColor(this,CustomTodoItemAdapter.getPriorityColor(todoItem.priority)));
+
+        }else{
+            toolbarTitle.setText("New to-do");
+            ivLogo.setImageResource(R.drawable.circle3);
+            ivLogo.setColorFilter(ContextCompat.getColor(this,CustomTodoItemAdapter.getPriorityColor(2)));
+        }
     }
 
-    private void initDueDate(){
+    private void populateItemFields() {
+        etTitle.setText(todoItem.title);
+        etNotes.setText(todoItem.notes);
+//        todoItem.dueDate = calendar.getTime().toString();
+        String dueDateString = todoItem.dueDate;
+        DateFormat df = new SimpleDateFormat("EEE MMM dd h:mm:ss z yyyy", Locale.ENGLISH);
+        Date dueDate;
+        try {
+            dueDate = df.parse(dueDateString);
+
+            String month = (String) android.text.format.DateFormat.format("MM", dueDate); //06
+            String year = (String) android.text.format.DateFormat.format("yyyy", dueDate); //2013
+            String day = (String) android.text.format.DateFormat.format("dd", dueDate); //20
+            String dueDateStr = getStringForDate(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(day));
+            tvCalendar.setText(dueDateStr);
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        isLocationSet = todoItem.isLocationSet;
+        if (isLocationSet) {
+
+            placeName = todoItem.placeName;
+            placeAddress = todoItem.placeAddress;
+            latitude = todoItem.latitude;
+            longitude = todoItem.longitude;
+
+            LinearLayout llLocation = (LinearLayout) findViewById(R.id.llLocation);
+            llLocation.setVisibility(View.VISIBLE);
+            TextView tvLocation = (TextView) findViewById(R.id.tvLocation);
+            ivNavigate = (ImageView) findViewById(R.id.ivNavigate);
+            ivGoogleStaticImgForLocation = (ImageView) findViewById(R.id.googleStaticImgForLocation);
+            tvLocation.setText(todoItem.placeName + "\n" + todoItem.placeAddress);
+
+            if (latitude != null && longitude != null) {
+                setImageViewLocationAndOptions();
+            }
+        }
+
+//        todoItem.isLocationSet = isLocationSet;
+//        todoItem.placeName = placeName;
+//        todoItem.placeAddress = placeAddress;
+//        todoItem.latitude = latitude;
+//        todoItem.longitude = longitude;
+
+
+    }
+
+        private void initDueDate() {
         Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
         month = c.get(Calendar.MONTH);
@@ -144,8 +228,8 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 
-    private void setImageViewLocationAndOptions(){
-        AsyncTask<Void, Void, Bitmap> setImageFromUrl = new AsyncTask<Void, Void, Bitmap>(){
+    private void setImageViewLocationAndOptions() {
+        AsyncTask<Void, Void, Bitmap> setImageFromUrl = new AsyncTask<Void, Void, Bitmap>() {
             @Override
             protected Bitmap doInBackground(Void... params) {
                 Bitmap bmp = null;
@@ -164,8 +248,9 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
                 }
                 return bmp;
             }
+
             protected void onPostExecute(Bitmap bmp) {
-                if (bmp!=null) {
+                if (bmp != null) {
                     ivGoogleStaticImgForLocation.setImageBitmap(bmp);
                     ivGoogleStaticImgForLocation.setVisibility(View.VISIBLE);
                     ivNavigate.setVisibility(View.VISIBLE);
@@ -198,26 +283,41 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
     }
 
     public void saveItem(View view) {
-        etTitle = (EditText) findViewById(R.id.etItemTitle);
-        etNotes = (EditText) findViewById(R.id.etItemNotes);
+
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
         calendar.set(year, month, day);
 
         String title = etTitle.getText().toString();
-        if (TextUtils.isEmpty(title)){
+        if (TextUtils.isEmpty(title)) {
             title = "New to-do";
 
         }
-        //store date as string as activeandroid had issues with serializing date
-        TodoItem newItem = new TodoItem(etTitle.getText().toString(), title, priority_color, calendar.getTime().toString(), isLocationSet, placeName, placeAddress, latitude, longitude);
-        newItem.save();
 
-        if (isLocationSet) {
-            itemId = newItem.getId();
-            getPermissionToAccessFineLocation();
-            Log.i("SAG", "setting proximity alert for itemid: " + newItem.getId());
+        if(editItem) {
+            todoItem.title = title;
+            todoItem.notes = etNotes.getText().toString();
+            todoItem.dueDate = calendar.getTime().toString();
+            todoItem.isLocationSet = isLocationSet;
+            todoItem.priority = priority_color;
+            todoItem.placeName = placeName;
+            todoItem.placeAddress = placeAddress;
+            todoItem.latitude = latitude;
+            todoItem.longitude = longitude;
+            //isLocationSet, placeName, placeAddress, latitude, longitude
+            todoItem.save();
         }else {
+
+            //store date as string as activeandroid had issues with serializing date
+            todoItem = new TodoItem(title, etNotes.getText().toString(), priority_color, calendar.getTime().toString(), isLocationSet, placeName, placeAddress, latitude, longitude);
+            todoItem.save();
+        }
+
+        if (isLocationSet && changed) {
+            itemId = todoItem.getId();
+            getPermissionToAccessFineLocation();
+            Log.i("SAG", "setting proximity alert for itemid: " + todoItem.getId());
+        } else {
 
             Intent i = new Intent(NewItemActivity.this, MainActivity.class);
             startActivity(i);
@@ -303,12 +403,12 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
                 proximityIntent // will be used to generate an Intent to fire when entry to or exit from the alert region is detected
         );
 
-        try{
-        IntentFilter filter = new IntentFilter(PROX_ALERT_INTENT);
-        registerReceiver(new ProximityIntentReceiver(), filter);
+        try {
+            IntentFilter filter = new IntentFilter(PROX_ALERT_INTENT);
+            registerReceiver(new ProximityIntentReceiver(), filter);
             Log.i("SAG", "intent registerred " + latitude + " " + longitude + " itemid: " + itemId
             );
-        }catch (SecurityException e){
+        } catch (SecurityException e) {
             e.printStackTrace();
         }
 
@@ -317,7 +417,7 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
 
     }
 
-    public void navigateWithGMaps(View view){
+    public void navigateWithGMaps(View view) {
         String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)", latitude, longitude, placeName);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
@@ -340,11 +440,14 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
     }
 
     public void setLocation(View view) throws GooglePlayServicesNotAvailableException, GooglePlayServicesRepairableException {
+        if(editItem){
+            changed = true;
+        }
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
         startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
     }
 
-    public void setDueDate(View view){
+    public void setDueDate(View view) {
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
@@ -370,7 +473,7 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
         }
     }
 
-    private String getStringForDate(int year, int month, int day){
+    private String getStringForDate(int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
         calendar.set(year, month, day);
@@ -382,7 +485,10 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
 
     @Override
     public void onColorPickerClick(int colorPosition) {
+
         priority_color = colorPosition;
+        ivLogo.setColorFilter(ContextCompat.getColor(this,CustomTodoItemAdapter.getPriorityColor(priority_color)));
+
     }
 
 }

@@ -97,6 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ivCalendar"
             android:paddingTop="4dp"
+            android:paddingBottom="10dp"
             android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="15dp" />
@@ -137,6 +138,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1.08"
                 android:orientation="horizontal"
+                android:id="@+id/llLocation"
                 android:weightSum="1">
 
                 <ImageView

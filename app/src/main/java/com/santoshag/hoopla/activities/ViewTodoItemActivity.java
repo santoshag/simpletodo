@@ -54,6 +54,7 @@ public class ViewTodoItemActivity extends AppCompatActivity {
     ImageView ivGoogleStaticImgForLocation;
     Double latitude;
     Double longitude;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,11 +65,14 @@ public class ViewTodoItemActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.view_task);
         getSupportActionBar().setIcon(R.drawable.ic_app_icon);*/
 
-        dbItemIndex = getIntent().getLongExtra("dbItemIndex", -1);
-        todoItem = (TodoItem) new Select().from(TodoItem.class)
-                .where("id = ?", dbItemIndex).executeSingle();
 
-        populateItemFields();
+
+            dbItemIndex = getIntent().getLongExtra("dbItemIndex", -1);
+            todoItem = (TodoItem) new Select().from(TodoItem.class)
+                    .where("id = ?", dbItemIndex).executeSingle();
+
+            populateItemFields();
+
     }
 
     @Override
@@ -101,40 +105,40 @@ public class ViewTodoItemActivity extends AppCompatActivity {
         return true;
     }
 
-    private void deleteItem(){
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                    this);
+    private void deleteItem() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
 
-            // set title
-            alertDialogBuilder.setTitle("Delete Task");
-            alertDialogBuilder.setIcon(R.drawable.ic_delete_black_18dp);
+        // set title
+        alertDialogBuilder.setTitle("Delete Task");
+        alertDialogBuilder.setIcon(R.drawable.ic_delete_black_18dp);
 
-            // set dialog message
-            alertDialogBuilder
-                    .setMessage("Delete " + todoItem.title + "?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // if this button is clicked, close
-                            // current activity
-                            TodoItem.delete(TodoItem.class, todoItem.getId());
-                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(i);
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // if this button is clicked, just close
-                            // the dialog box and do nothing
-                            dialog.cancel();
-                        }
-                    });
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Delete " + todoItem.title + "?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, close
+                        // current activity
+                        TodoItem.delete(TodoItem.class, todoItem.getId());
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(i);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
 
-            // create alert dialog
-            AlertDialog alertDialog = alertDialogBuilder.create();
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
 
-            // show it
-            alertDialog.show();
+        // show it
+        alertDialog.show();
 
 
     }
@@ -151,10 +155,6 @@ public class ViewTodoItemActivity extends AppCompatActivity {
     private void populateItemFields() {
         int position = getIntent().getIntExtra("position", -1);
 
-        tvItemTitle = (TextView) findViewById(R.id.tvItemTitle);
-        tvItemNotes = (TextView) findViewById(R.id.tvItemNotes);
-        tvPriority = (TextView) findViewById(R.id.tvPriority);
-        tvCalendar = (TextView) findViewById(R.id.tvCalendar);
 
         tvItemTitle.setText(todoItem.title);
         tvItemNotes.setText(todoItem.notes);
@@ -178,7 +178,7 @@ public class ViewTodoItemActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if(todoItem.isLocationSet){
+        if (todoItem.isLocationSet) {
             LinearLayout llLocation = (LinearLayout) findViewById(R.id.llLocation);
             llLocation.setVisibility(View.VISIBLE);
             TextView tvLocation = (TextView) findViewById(R.id.tvLocation);
@@ -209,7 +209,7 @@ public class ViewTodoItemActivity extends AppCompatActivity {
             location.getLatitude();
             location.getLongitude();
 
-            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
 
         } catch (Exception ex) {
 
@@ -219,8 +219,8 @@ public class ViewTodoItemActivity extends AppCompatActivity {
         return p1;
     }
 
-    private void setImageViewLocationAndOptions(){
-        AsyncTask<Void, Void, Bitmap> setImageFromUrl = new AsyncTask<Void, Void, Bitmap>(){
+    private void setImageViewLocationAndOptions() {
+        AsyncTask<Void, Void, Bitmap> setImageFromUrl = new AsyncTask<Void, Void, Bitmap>() {
             @Override
             protected Bitmap doInBackground(Void... params) {
                 Bitmap bmp = null;
@@ -239,8 +239,9 @@ public class ViewTodoItemActivity extends AppCompatActivity {
                 }
                 return bmp;
             }
+
             protected void onPostExecute(Bitmap bmp) {
-                if (bmp!=null) {
+                if (bmp != null) {
 
                     ivGoogleStaticImgForLocation.setImageBitmap(bmp);
                     ivGoogleStaticImgForLocation.setVisibility(View.VISIBLE);
@@ -253,17 +254,17 @@ public class ViewTodoItemActivity extends AppCompatActivity {
 
     }
 
-    private String getStringForDate(int year, int month, int day){
+    private String getStringForDate(int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
         calendar.set(year, month, day);
         Date date = calendar.getTime();
 
-        return new SimpleDateFormat("EEE", Locale.ENGLISH).format(date.getTime())  + ", " + new SimpleDateFormat("MMM", Locale.ENGLISH).format(date.getTime()) + " " + new SimpleDateFormat("dd", Locale.ENGLISH).format(date.getTime()) + " " + new SimpleDateFormat("yyyy", Locale.ENGLISH).format(date.getTime());
+        return new SimpleDateFormat("EEE", Locale.ENGLISH).format(date.getTime()) + ", " + new SimpleDateFormat("MMM", Locale.ENGLISH).format(date.getTime()) + " " + new SimpleDateFormat("dd", Locale.ENGLISH).format(date.getTime()) + " " + new SimpleDateFormat("yyyy", Locale.ENGLISH).format(date.getTime());
 
     }
 
-    public void navigateWithGMaps(View view){
+    public void navigateWithGMaps(View view) {
         String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)", latitude, longitude, todoItem.placeName);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");

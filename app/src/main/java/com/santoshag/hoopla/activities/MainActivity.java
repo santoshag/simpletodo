@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -47,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //set action bar icon
+        Window window = getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
+        window.setStatusBarColor(getResources().getColor(R.color.primary_light));
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -129,8 +141,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         TodoItem selectedItem = todoItems.get(position);
-                        Intent i = new Intent(MainActivity.this, ViewTodoItemActivity.class);
+                        Intent i = new Intent(MainActivity.this, NewItemActivity.class);
                         i.putExtra("position", position);
+                        i.putExtra("editItem", true);
                         i.putExtra("dbItemIndex", selectedItem.getId());
                         startActivity(i);
                     }
