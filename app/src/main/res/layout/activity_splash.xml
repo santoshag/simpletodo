@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/primary_dark">
+    android:background="@color/primaryTextColor">
 
-    <TextView android:layout_width="fill_parent"
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="65dp"
+        android:src="@drawable/hoopla_svg"
+        android:layout_toLeftOf="@+id/tvAppTitle"
+        android:layout_alignTop="@+id/tvAppTitle"
+        android:tint="@color/app_icon_color"
+        android:layout_alignBottom="@id/tvAppTitle"/>
+    <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="hoopla to-do"/>
+        android:paddingLeft="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Hoopla"
+        fontPath="fonts/roboto_thin.ttf"
+        android:textSize="40sp"
+        android:id="@+id/tvAppTitle"
+        android:textColor="@color/app_icon_color"/>
 
-</LinearLayout>
+</RelativeLayout>

@@ -11,7 +11,7 @@ import android.util.Log;
 
 import com.activeandroid.query.Select;
 import com.santoshag.hoopla.R;
-import com.santoshag.hoopla.activities.ViewTodoItemActivity;
+import com.santoshag.hoopla.activities.NewItemActivity;
 import com.santoshag.hoopla.models.TodoItem;
 
 public class ProximityIntentReceiver extends BroadcastReceiver {
@@ -42,8 +42,10 @@ public class ProximityIntentReceiver extends BroadcastReceiver {
         // prepare intent which is triggered if the
         // notification is selected
 
-        Intent notificationIntent = new Intent(context, ViewTodoItemActivity.class);
+        Intent notificationIntent = new Intent(context, NewItemActivity.class);
         notificationIntent.putExtra("dbItemIndex", itemId);
+        notificationIntent.putExtra("editItem", true);
+
         // use System.currentTimeMillis() to have a unique ID for the pending intent
         PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), notificationIntent, 0);
 

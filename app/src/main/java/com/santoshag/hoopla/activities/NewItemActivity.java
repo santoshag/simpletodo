@@ -74,7 +74,7 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
     int year;
     int month;
     int day;
-    int priority_color = 0;
+    int priority_color = 3;
     Double latitude;
     Double longitude;
     TextView tvCalendar;
@@ -125,7 +125,7 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
 
         initDueDate();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-         editItem = getIntent().getBooleanExtra("editItem", false);
+        editItem = getIntent().getBooleanExtra("editItem", false);
 
         if (editItem) {
             dbItemIndex = getIntent().getLongExtra("dbItemIndex", -1);
@@ -133,19 +133,21 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
                     .where("id = ?", dbItemIndex).executeSingle();
             toolbarTitle.setText(todoItem.title);
             populateItemFields();
-            ivLogo.setImageResource(R.drawable.circle3);
-            ivLogo.setColorFilter(ContextCompat.getColor(this,CustomTodoItemAdapter.getPriorityColor(todoItem.priority)));
+            ivLogo.setImageResource(R.drawable.circle_priority);
+            ivLogo.setColorFilter(ContextCompat.getColor(this, CustomTodoItemAdapter.getPriorityColor(todoItem.priority)));
 
-        }else{
+        } else {
             toolbarTitle.setText("New to-do");
-            ivLogo.setImageResource(R.drawable.circle3);
-            ivLogo.setColorFilter(ContextCompat.getColor(this,CustomTodoItemAdapter.getPriorityColor(2)));
+            ivLogo.setImageResource(R.drawable.circle_priority);
+            ivLogo.setColorFilter(ContextCompat.getColor(this, CustomTodoItemAdapter.getPriorityColor(3)));
         }
     }
 
     private void populateItemFields() {
         etTitle.setText(todoItem.title);
         etNotes.setText(todoItem.notes);
+
+        priority_color = todoItem.priority;
 //        todoItem.dueDate = calendar.getTime().toString();
         String dueDateString = todoItem.dueDate;
         DateFormat df = new SimpleDateFormat("EEE MMM dd h:mm:ss z yyyy", Locale.ENGLISH);
@@ -153,12 +155,15 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
         try {
             dueDate = df.parse(dueDateString);
 
-            String month = (String) android.text.format.DateFormat.format("MM", dueDate); //06
-            String year = (String) android.text.format.DateFormat.format("yyyy", dueDate); //2013
-            String day = (String) android.text.format.DateFormat.format("dd", dueDate); //20
-            String dueDateStr = getStringForDate(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(day));
+            String monthStr = (String) android.text.format.DateFormat.format("MM", dueDate); //06
+            String yearStr = (String) android.text.format.DateFormat.format("yyyy", dueDate); //2013
+            String dayStr = (String) android.text.format.DateFormat.format("dd", dueDate); //20
+            String dueDateStr = getStringForDate(Integer.parseInt(yearStr), Integer.parseInt(monthStr) - 1, Integer.parseInt(dayStr));
             tvCalendar.setText(dueDateStr);
 
+            year = Integer.parseInt(yearStr);
+            month = Integer.parseInt(monthStr) -1;
+            day = Integer.parseInt(dayStr);
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -193,7 +198,7 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
 
     }
 
-        private void initDueDate() {
+    private void initDueDate() {
         Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
         month = c.get(Calendar.MONTH);
@@ -302,7 +307,7 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
 
         }
 
-        if(editItem) {
+        if (editItem) {
             todoItem.title = title;
             todoItem.notes = etNotes.getText().toString();
             todoItem.dueDate = calendar.getTime().toString();
@@ -314,7 +319,7 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
             todoItem.longitude = longitude;
             //isLocationSet, placeName, placeAddress, latitude, longitude
             todoItem.save();
-        }else {
+        } else {
 
             //store date as string as activeandroid had issues with serializing date
             todoItem = new TodoItem(title, etNotes.getText().toString(), priority_color, calendar.getTime().toString(), isLocationSet, placeName, placeAddress, latitude, longitude);
@@ -448,7 +453,7 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
     }
 
     public void setLocation(View view) throws GooglePlayServicesNotAvailableException, GooglePlayServicesRepairableException {
-        if(editItem){
+        if (editItem) {
             changed = true;
         }
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -495,7 +500,7 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
     public void onColorPickerClick(int colorPosition) {
 
         priority_color = colorPosition;
-        ivLogo.setColorFilter(ContextCompat.getColor(this,CustomTodoItemAdapter.getPriorityColor(priority_color)));
+        ivLogo.setColorFilter(ContextCompat.getColor(this, CustomTodoItemAdapter.getPriorityColor(priority_color)));
 
     }
 

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.activeandroid.query.Select;
@@ -41,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
     TextView toolbar_title;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.llPlaceholder)
+    LinearLayout llPlaceholder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +136,13 @@ public class MainActivity extends AppCompatActivity {
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(rvItems);
 
-
+        if(queryResults.size() == 0){
+            llPlaceholder.setVisibility(View.VISIBLE);
+            rvItems.setVisibility(View.GONE);
+        }else{
+            llPlaceholder.setVisibility(View.GONE);
+            rvItems.setVisibility(View.VISIBLE);
+        }
         ItemClickSupport.addTo(rvItems).setOnItemClickListener(
                 new ItemClickSupport.OnItemClickListener() {
                     @Override

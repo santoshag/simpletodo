@@ -5,6 +5,7 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_color"
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
     tools:context=".activities.MainActivity">
@@ -17,13 +18,41 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".activities.MainActivity">
 
+        <LinearLayout
+            android:id="@+id/llPlaceholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="onClickAddNewTask"
+                android:src="@drawable/pencil" />
+
+            <TextView
+                fontPath="fonts/roboto_thin.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Add new to-dos."
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvItems"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/bg_color" />
-
-
+            android:visibility="gone" />
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -31,9 +60,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="20dp"
-        app:backgroundTint="@color/primary"
         android:onClick="onClickAddNewTask"
-        android:src="@drawable/ic_add_white_24dp"
+        android:src="@drawable/pencil"
+        app:backgroundTint="@color/primary"
         app:fabSize="mini" />
 
 </android.support.design.widget.CoordinatorLayout>

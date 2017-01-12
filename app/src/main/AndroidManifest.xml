@@ -45,7 +45,6 @@
             android:parentActivityName=".activities.MainActivity" >
 
         </activity>
-        <activity android:name=".activities.ViewTodoItemActivity" />
         <!-- Splash screen -->
         <activity
             android:name=".activities.SplashActivity"
