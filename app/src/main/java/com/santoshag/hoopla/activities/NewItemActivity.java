@@ -1,6 +1,7 @@
 package com.santoshag.hoopla.activities;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -12,9 +13,13 @@ import android.graphics.BitmapFactory;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +29,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -69,6 +75,7 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
     ImageView ivDeleteLocation;
     ImageView ivGoogleStaticImgForLocation;
     Boolean isLocationSet = false;
+    Long itemId;
 
     int PLACE_PICKER_REQUEST = 1;
     private static final String PROX_ALERT_INTENT =
@@ -86,7 +93,7 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
         ivGoogleStaticImgForLocation = (ImageView) findViewById(R.id.googleStaticImgForLocation);
         ColorPickerView colorPickerView = (ColorPickerView) findViewById(R.id.nsvSpectrum);
         colorPickerView.setListener(this);
-//        colorPickerView.onClick(colorPickerView, colorPickerView, 0);
+//        colorPickerView.onClick(colorPickerView.getRootView(),(ViewGroup) colorPickerView.getRootView(), 0);
 
         onColorPickerClick(0);
 
@@ -197,19 +204,85 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
         calendar.clear();
         calendar.set(year, month, day);
 
+        String title = etTitle.getText().toString();
+        if (TextUtils.isEmpty(title)){
+            title = "New to-do";
+
+        }
         //store date as string as activeandroid had issues with serializing date
-        TodoItem newItem = new TodoItem(etTitle.getText().toString(), etNotes.getText().toString(), priority_color, calendar.getTime().toString(), isLocationSet, placeName, placeAddress, latitude, longitude);
+        TodoItem newItem = new TodoItem(etTitle.getText().toString(), title, priority_color, calendar.getTime().toString(), isLocationSet, placeName, placeAddress, latitude, longitude);
         newItem.save();
 
         if (isLocationSet) {
+            itemId = newItem.getId();
+            getPermissionToAccessFineLocation();
             Log.i("SAG", "setting proximity alert for itemid: " + newItem.getId());
-            saveProximityAlertPoint(latitude, longitude, newItem.getId());
+        }else {
+
+            Intent i = new Intent(NewItemActivity.this, MainActivity.class);
+            startActivity(i);
         }
 
-        Intent i = new Intent(NewItemActivity.this, MainActivity.class);
-        startActivity(i);
-
     }
+
+
+    // Identifier for the permission request
+    private static final int ACCESS_FINE_LOCATION_PERMISSIONS_REQUEST = 1;
+
+    // Called when the user is performing an action which requires the app to read the
+    // user's contacts
+    @TargetApi(Build.VERSION_CODES.M)
+    public void getPermissionToAccessFineLocation() {
+        // 1) Use the support library version ContextCompat.checkSelfPermission(...) to avoid
+        // checking the build version since Context.checkSelfPermission(...) is only available
+        // in Marshmallow
+        // 2) Always check for permission (even if permission has already been granted)
+        // since the user can revoke permissions at any time through Settings
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // The permission is NOT already granted.
+            // Check if the user has been asked about this permission already and denied
+            // it. If so, we want to give more explanation about why the permission is needed.
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.READ_CONTACTS)) {
+                // Show our own UI to explain to the user why we need to read the contacts
+                // before actually requesting the permission and showing the default UI
+            }
+
+            // Fire off an async request to actually get the permission
+            // This will show the standard permission request dialog UI
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    ACCESS_FINE_LOCATION_PERMISSIONS_REQUEST);
+        }
+    }
+
+    // Callback with the request from calling requestPermissions(...)
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        // Make sure it's our original READ_CONTACTS request
+        if (requestCode == ACCESS_FINE_LOCATION_PERMISSIONS_REQUEST) {
+            if (grantResults.length == 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Access location permission granted", Toast.LENGTH_SHORT).show();
+                saveProximityAlertPoint(latitude, longitude, itemId);
+            } else {
+                // showRationale = false if user clicks Never Ask Again, otherwise true
+                boolean showRationale = false;
+
+                if (showRationale) {
+                    // do something here to handle degraded mode
+                } else {
+                    Toast.makeText(this, "Access location permission denied", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
 
     private void saveProximityAlertPoint(double latitude, double longitude, Long itemId) {
 
@@ -218,16 +291,7 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
         PendingIntent proximityIntent = PendingIntent.getBroadcast(this, itemId.intValue(), intent, 0);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    10);
+
         }
 
 
@@ -247,6 +311,9 @@ public class NewItemActivity extends AppCompatActivity implements ColorPickerVie
         }catch (SecurityException e){
             e.printStackTrace();
         }
+
+        Intent i = new Intent(NewItemActivity.this, MainActivity.class);
+        startActivity(i);
 
     }
 
